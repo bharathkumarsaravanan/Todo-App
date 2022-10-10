@@ -81,7 +81,7 @@ router.post('/edit/:id',function(req,res){
     .where('id',newItem.id)
     .then(() => res.send({result: 'Edited Successfully'}))
 
-})
+});
 
 router.get('/view/:id',function(req,res){
     console.log(req.params.id);
