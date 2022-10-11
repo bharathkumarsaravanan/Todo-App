@@ -31,7 +31,7 @@ function TableRow(listItem){
     //     );
     // }
     const path = `/edit/${listItem.columns.id}`;
-    const showPath = `/view/${listItem.columns.id}`;
+    const showPath = `/show/${listItem.columns.id}`;
 
     return(
         <tr>

@@ -83,13 +83,6 @@ router.post('/edit/:id',function(req,res){
 
 });
 
-router.get('/view/:id',function(req,res){
-    console.log(req.params.id);
-    var id = req.params.id
-    knex('tudos')
-    .select('*')
-    .where('id', id)
-    .then((data) => res.send({Item:data}));
-})
+
 
 module.exports = router;
