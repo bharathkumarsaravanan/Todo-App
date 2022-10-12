@@ -47,7 +47,7 @@ function View(){
     }
 
     if(viewItem!==undefined){
-    var editPath = `/show/update/${viewItem.id}`
+    var editPath = `/show/${id}/update/${viewItem.id}`
     }
     var addPath = `/show/${id}/add`
 

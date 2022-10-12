@@ -42,6 +42,7 @@ function TableRow(listItem){
             {/* <td><button onClick={EditItem}>Edit</button></td> */}
             <td><Link to= {path} >Edit</Link></td>
             <td><Link to= {showPath}>View</Link></td>
+            {/* <td><a href='' download='file'> download </a></td> */}
 
         </tr>
     )

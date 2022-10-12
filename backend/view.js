@@ -96,4 +96,25 @@ router.post('/view/:id/remove', function(req,res){
     .then(() => res.send({message: 'Tools deleted Successfully'}))
 })
 
+router.get('/update/:id/update/:listid',function(req,res){
+    var entryId = req.params.listid;
+
+    knex('projectTools')
+    .select('*')
+    .where('id',entryId)
+    .then((data) => res.send({selected:data}));
+})
+
+router.post('/update/:id/update/:listid',function(req,res){
+    var body = req.body;
+    var entryId = req.params.listid;
+    console.log(body);  
+
+    knex('projectTools')
+    .where('id',entryId)
+    .update(body)
+    .then(() => res.send({message: 'Tools updated'}))
+
+})
+
 module.exports = router;

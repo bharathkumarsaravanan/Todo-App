@@ -15,23 +15,20 @@ const knex = require('knex')({
 // db.run('CREATE TABLE projectTools(id INTEGER PRIMARY KEY AUTOINCREMENT,ProjectId INT, frontend INT, backend INT, database INT)');
 // db.run('CREATE TABLE tudoList(id INTEGER PRIMARY KEY AUTOINCREMENT, tudoId INT, projectId INT)');
 // db.run('CREATE TABLE technologies(id INTEGER PRIMARY KEY AUTOINCREMENT, language STRING, type STRING)');
+// db.run('CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING)');
 // db.run('Drop TABLE projectTools');
 
 // knex.insert({
-//     ProjectId: 7,
-//     frontend: 6,
-//     backend: 4,
-//     database: 11
-// }).into('projectTools')
+//    name:'Vikram'
+// }).into('Users')
 // .then((e) => console.log(e));
 
-
-
-
-
-knex('projectTools')
+knex('Users')
 .select('*')
 .then((e) => console.log(e))
+
+
+
 
 
 

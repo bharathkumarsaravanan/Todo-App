@@ -83,6 +83,13 @@ router.post('/edit/:id',function(req,res){
 
 });
 
+router.get('/users',function(req,res){
+
+    knex('Users')
+    .select('*')
+    .then((users) => res.send({users: users}));
+})
+
 
 
 module.exports = router;

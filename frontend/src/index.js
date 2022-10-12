@@ -4,7 +4,9 @@ import Home from './components/Home/home';
 import Create from './components/Create/create';
 import Edit from './components/Edit/edit';
 import View from './components/View/view';
-import Add from './components/View/add'
+import Add from './components/View/add';
+import AddTools from './components/View/Addtools';
+import Update from './components/View/Update';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,8 +19,8 @@ export default function App(){
             <Route path = '/create' element={<Create/>} />
             <Route path = '/edit/:id' element={<Edit/>} />
             <Route path = '/show/:id' element={<View/>} />
-            <Route path = '/show/:id/add' element={<Add/>} />
-            <Route path = '/show/:id/update/:listid' element={<View/>} />
+            <Route path = '/show/:id/add' element={<AddTools/>} />
+            <Route path = '/show/:id/update/:listid' element={<Update/>} />
           </Routes>
         </BrowserRouter>
       )
