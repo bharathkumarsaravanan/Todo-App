@@ -2,6 +2,11 @@ import React from "react";
 import { useState,useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 
 
 function View(){
@@ -52,17 +57,18 @@ function View(){
     var addPath = `/show/${id}/add`
 
     return(
-        <div>
-            <h1>{title.title}</h1>
-            {viewItem===undefined? <Link to={addPath}>Add tools</Link>: <Link to ={editPath}>Update tools</Link>}<br /><br />
-            {viewItem!==undefined&&<button onClick={RemoveTools}>Remove All</button>}
+        <div style={{ textAlign:'center'}}>
+            <Typography variant="h3">{title.title}</Typography>
+            <div style={{display:'flex',gap:'10px', justifyContent:'center',margin:'30px'}}>
+                {viewItem===undefined? <Link to={addPath}><Button variant="contained">Add tools</Button></Link>: <Link to ={editPath}><Button variant="contained">Update tools</Button></Link>}<br /><br />
+                {viewItem!==undefined&&<Button variant="contained" color="error" onClick={RemoveTools}>Remove All</Button>}
+            </div>
             
-            
-            <ul>
-                <li>Frontend:  {viewItem!=undefined&&viewItem.frontend}</li>
-                <li>Backend:  {viewItem!=undefined&&viewItem.backend}</li>
-                <li>Database:  {viewItem!=undefined&&viewItem.database}</li>
-            </ul>
+            <List>
+                <ListItem>Frontend:  {viewItem!=undefined&&viewItem.frontend}</ListItem>
+                <ListItem>Backend:  {viewItem!=undefined&&viewItem.backend}</ListItem>
+                <ListItem>Database:  {viewItem!=undefined&&viewItem.database}</ListItem>
+            </List>
         </div>
     )
 

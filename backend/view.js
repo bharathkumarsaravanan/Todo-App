@@ -40,7 +40,7 @@ router.get('/view/:id',function(req,res){
     .join({a:'technologies'},'projectTools.frontend','=','a.id')
     .join({b:'technologies'},'projectTools.backend','=','b.id')
     .join({c:'technologies'},'projectTools.database','=','c.id')
-    .select('projectTools.id','tudos.title','a.language as frontend','b.language as backend','c.language as database')
+    .select('projectTools.id','tudos.title','a.name as frontend','b.name as backend','c.name as database')
     .where('tudos.id',id)
     .then((data) => 
     

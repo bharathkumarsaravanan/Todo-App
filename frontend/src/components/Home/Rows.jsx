@@ -1,8 +1,13 @@
 import React from "react";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Button from '@mui/material/Button';
 
-function TableRow(listItem){
+
+
+function Rows(listItem){
 
     const deleteFetch = useCallback((deleteId) => {
         return(fetch('http://localhost:4000/delete',{
@@ -23,29 +28,19 @@ function TableRow(listItem){
         deleteFetch(id);
     }
 
-    // function EditItem(){
-    //     console.log(listItem.columns.id);
-    //     window.location.href = `/edit/${listItem.columns.id}`
-    //     this.props.history.push({pathname: '/edit',
-    //     state: {id: listItem.columns.id }}
-    //     );
-    // }
     const path = `/edit/${listItem.columns.id}`;
     const showPath = `/show/${listItem.columns.id}`;
 
     return(
-        <tr>
-            <td>{listItem.columns.userId}</td>
-            <td>{listItem.columns.title}</td>
-            <td>{listItem.columns.completed? 'completed':'not completed'}</td>
-            <td><button onClick={DeleteItem}>Delete</button></td>
-            {/* <td><button onClick={EditItem}>Edit</button></td> */}
-            <td><Link to= {path} >Edit</Link></td>
-            <td><Link to= {showPath}>View</Link></td>
-            {/* <td><a href='' download='file'> download </a></td> */}
-
-        </tr>
+        <TableRow>
+            <TableCell>{listItem.columns.userName}</TableCell>
+            <TableCell>{listItem.columns.title}</TableCell>
+            <TableCell>{listItem.columns.completed? 'completed':'not completed'}</TableCell>
+            <TableCell><Button variant="outlined" color="error"  onClick={DeleteItem}>Delete</Button></TableCell>
+            <TableCell><Link to= {path} ><Button variant="contained" color="success">Edit</Button></Link></TableCell>
+            <TableCell><Link to= {showPath}><Button variant="contained" color="info">View</Button></Link></TableCell>
+        </TableRow>
     )
 }
 
-export default TableRow
+export default Rows;

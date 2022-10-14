@@ -18,12 +18,14 @@ const knex = require('knex')({
 // db.run('CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING)');
 // db.run('Drop TABLE projectTools');
 
+// db.run('ALTER TABLE Technologies RENAME COLUMN language to name')
+
 // knex.insert({
 //    name:'Vikram'
 // }).into('Users')
 // .then((e) => console.log(e));
 
-knex('Users')
+knex('tudos')
 .select('*')
 .then((e) => console.log(e))
 

@@ -29,7 +29,8 @@ router.use(function timeLog(req,res,next){
 
 router.get('/',function(req,res){
     knex('tudos')
-    .select('*')
+    .join('Users','tudos.userId','=','Users.id')
+    .select('tudos.id','Users.name as userName','tudos.title','tudos.completed')
     .then((tudoItems) => res.send({tudoItems}))
 })
 
@@ -43,6 +44,12 @@ router.post('/delete',function(req,res){
     .then(() => res.send({result :`${deleteId} deleted`}));
 })
 
+router.get('/create',function(req,res){
+    knex('Users')
+    .select('*')
+    .then((users) => res.send({users:users}));
+})
+
 router.post('/create',function(req,res){
     console.log(req.body);
 
@@ -53,7 +60,7 @@ router.post('/create',function(req,res){
         title:newElement.title,
         completed: newElement.status
     }).into('tudos')
-    .then(() => res.send('Created successfully'))
+    .then(() => res.send({message:'Created successfully'}))
 
 })
 
@@ -62,9 +69,13 @@ router.get('/edit/:id',function(req,res){
     var id = req.params.id;
 
     knex('tudos')
-    .select('*')
-    .where('id',id)
-    .then((data) => res.send({Editdata:data}))
+    .join('Users','tudos.userId','=','Users.id')
+    .select('tudos.id','Users.id as userId','Users.name as userName','tudos.title','tudos.completed')
+    .where('tudos.id',id)
+    .then((data) =>  
+        knex('users')
+        .select('*')
+        .then((users) => res.send({Editdata:data,users:users}) ))
 
 })
 
@@ -86,7 +97,8 @@ router.post('/edit/:id',function(req,res){
 router.get('/users',function(req,res){
 
     knex('Users')
-    .select('*')
+    .join('tudos','Users.id','=','tudos.userId')
+    .select('Users.id','users.name','tudos.title')
     .then((users) => res.send({users: users}));
 })
 
