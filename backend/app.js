@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors())
 app.use(require('./index'))
 app.use(require('./view'))
+app.use(require('./tudos'))
 
 
 

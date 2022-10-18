@@ -97,9 +97,20 @@ router.post('/edit/:id',function(req,res){
 router.get('/users',function(req,res){
 
     knex('Users')
+    .select('*')
+    .then(
+        
+        (users) => res.send({users: users}));
+})
+
+router.get('/users/:id',function(req,res){
+
+    var id = req.params.id;
+    knex('Users')
     .join('tudos','Users.id','=','tudos.userId')
-    .select('Users.id','users.name','tudos.title')
-    .then((users) => res.send({users: users}));
+    .select('Users.id','Users.name','tudos.id as projectid','tudos.title')
+    .where('Users.id',id)
+    .then((projects) => res.send({projects:projects}));
 })
 
 

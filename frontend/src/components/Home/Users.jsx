@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 function Users(){
 
     const [userData,setUserData] = useState()
@@ -26,7 +27,7 @@ function Users(){
     
     return(
         <TableContainer component={Paper}>
-            <h1>Users</h1>
+            <Typography variant="h3" gutterBottom>Users</Typography>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -35,7 +36,7 @@ function Users(){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {userData&&userData.map((user,index) => <Userrow columns= {user} key={index}/>)}
+                    {userData&&userData.map((user,index) => <Userrow columns= {user} key={user.id} id={user.id}/>)}
                 </TableBody>
             </Table>
         </TableContainer>
