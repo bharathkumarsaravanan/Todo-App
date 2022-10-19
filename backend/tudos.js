@@ -59,8 +59,29 @@ router.get('/tudos/:id',function(req,res){
     .join('tudos','tudos.id','=','tasks.projectId')
     .select('tasks.title','tasks.id','tasks.description')
     .where('tudos.id',id)
+    .andWhere('tasks.status','todo')
     .orderBy('tasks.id','desc')
-    .then((tasks) => res.send({tasks:tasks}));
+    .then((tasks) => 
+
+    knex('tasks')
+    .join('tudos','tudos.id','=','tasks.projectId')
+    .select('tasks.title','tasks.id','tasks.description')
+    .where('tudos.id',id)
+    .andWhere('tasks.status','completed')
+    .orderBy('tasks.id','desc')
+    .then((completed)=>
+    
+    res.send({tasks:tasks,completed:completed})));
+});
+
+router.post('/tudos/tasks/delete',function(req,res){
+    var body = req.body;
+    console.log(body);
+
+    knex('tasks')
+    .del()
+    .where('id',body.id)
+    .then(() => res.send({message:'task deleted successfully'}))
 })
 
 

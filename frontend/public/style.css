@@ -16,6 +16,9 @@ body{
     height: 40rem;
     overflow-y: scroll;
  }
+ .container::-webkit-scrollbar{
+    display: none;
+ }
 
 .projectContainer{
     background-color: white;
@@ -25,6 +28,7 @@ body{
     border-radius: 10px;
     box-shadow: 10px 10px 30px #B2B2B2;
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -35,19 +39,34 @@ body{
     box-shadow: 10px 0px 10px 0px #EAEAEA;
     border-left: 2px solid #EAEAEA;
     border-bottom: 2px solid #EAEAEA;
-
+    background-color: white;
+    transition: 200ms ease-in-out;
+}
+.task:hover{
+    scale: 1.1;
 }
 
 .taskTitle{
     color: #73777B;
 }
 
+.preventPage{
+    background-color: black;
+    height: 100rem;
+    top: 10px;
+    /* display: block; */
+    /* position:absolute; */
+    z-index: 99;
+    /* opacity: 0.3; */
+    background: transparent;
+}
+
 .popup{
+    opacity: 10;
     background-color: white;
     justify-content: center;
     align-items: center;
     display: flex;
-    width: 15rem;
     line-height: 4rem;
     padding: 1.5rem;
     box-shadow: 15px 0px 70px -40px #B2B2B2 ;

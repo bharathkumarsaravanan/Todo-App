@@ -5,11 +5,14 @@ import {Button} from "@mui/material";
 import { useState, useEffect, useCallback } from "react";
 import {Select} from "@mui/material";
 import {MenuItem} from "@mui/material";
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 
 function CreatePopup(props){
 
-    const [values,setValues] = useState({title:'',description:'',projectId:''})
+    const [values,setValues] = useState({title:'',description:'',projectId:'',status:''})
     const [menuItems,setMenuItems] = useState()
+    const [statusOptions,setStatusOptions] = useState(['todo','completed'])
 
     var projectFetch = ()=> {
         return fetch('http://localhost:4000/tudos')
@@ -39,6 +42,7 @@ function CreatePopup(props){
                 ...prev,
                 [name] : value,
                 projectId : props.project,
+                status : document.getElementsByName('status')[0].value,
             }
         })
     }
@@ -76,6 +80,20 @@ function CreatePopup(props){
                 value={values.description}
                 onChange={Inputs}
                 />
+                <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                 <NativeSelect
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                name="status"
+                defaultValue= 'todo'
+                label= "status"
+                onChange={Inputs}
+                >
+                {/* {statusOptions&&statusOptions.map((Item) => <MenuItem value={Item} >{Item}</MenuItem>)} */}
+                <option value='todo' >Todo</option>
+                <option value='completed'>Completed</option>
+
+            </NativeSelect><br />
             <Button variant="contained" onClick={InputValues}>Enter</Button>
         </div>
     )
