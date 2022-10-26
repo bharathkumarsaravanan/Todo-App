@@ -22,10 +22,10 @@ function Add(props){
     var frontend = selectItems.frontend
     var backend = selectItems.backend
     var database = selectItems.database
-    console.log(frontend)
+    // console.log(frontend)
 
     function btnClick(){
-               console.log(newTools)
+            //    console.log(newTools)
                props.postFetch(newTools)
     }
 

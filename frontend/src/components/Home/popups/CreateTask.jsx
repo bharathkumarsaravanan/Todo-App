@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM  from "react-dom";
 import { TextField } from "@mui/material";
 import {TextareaAutosize} from "@mui/material";
 import {Button} from "@mui/material";
@@ -7,12 +8,14 @@ import {Select} from "@mui/material";
 import {MenuItem} from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 function CreatePopup(props){
 
-    const [values,setValues] = useState({title:'',description:'',projectId:'',status:''})
-    const [menuItems,setMenuItems] = useState()
-    const [statusOptions,setStatusOptions] = useState(['todo','completed'])
+    const [values, setValues] = useState({title:'',description:'',projectId:'',status:'todo'})
+    const [menuItems, setMenuItems] = useState()
+
 
     var projectFetch = ()=> {
         return fetch('http://localhost:4000/tudos')
@@ -20,22 +23,14 @@ function CreatePopup(props){
                 .then((data) => setMenuItems(data.tudos))
     }
 
-    var CreatTaskFetch = useCallback((NewItem) =>{
-        return fetch('http://localhost:4000/tudos',{
-                method: "POST",
-                body: JSON.stringify(NewItem),
-                headers: {'Content-type': 'application/json; charset=UTF-8'}
-                })
-                .then(response => response.json())
-                .then(result => console.log(result));
-    })
-
-    useEffect(() =>{
+    useEffect(() => {
         projectFetch();
-    },[])
+    }, [])
 
     function Inputs(element){
+        console.log(element.target.value);
         const {name,value} = element.target;
+        console.log(document.getElementsByName('status')[0].value)
 
         setValues((prev) => {
             return{
@@ -48,54 +43,64 @@ function CreatePopup(props){
     }
 
     function InputValues(){
-
-        CreatTaskFetch(values);
         console.log(values);
-        props.Add(values);
+        props.getValue(values);
         setValues({title:'',description:''})
         props.popup()
     }
 
-    return(
-        <div>
-            {/* <TextField id="outlined-basic" label="Project Name" variant="outlined" defaultValue={props.project} onChange={Inputs} /><br /> */}
+    if(!props.portal) return null
+
+    return ReactDOM.createPortal(
+        <div className="newPortal">
+
+        <div className="popup" style={{boxShadow:'15px 0px 70px -40px #B2B2B2',borderLeft:'1px solid #B2B2B2',borderBottom:'1px solid #B2B2B2'}}>
+            <CloseIcon onClick={() => props.popup()} style={{position:'absolute',right:'10px',top:'8px',cursor:'pointer'}}  />
+
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 name="projectId"
                 value={props.project}
                 label="Project Name"
-                onChange={Inputs}
-                >
+                onChange={Inputs}>
+
                 {menuItems&&menuItems.map((Item) => <MenuItem value={Item.id}>{Item.title}</MenuItem>)}
 
             </Select>
-            <TextField id="outlined-basic" label="Task" variant="outlined" name="title" onChange={Inputs} value={values.title} /><br />
+            <br/>
+
+            <TextField id="outlined-basic" label="Task" variant="outlined" name="title" onChange={Inputs} value={props.default?props.default.title:values.title} /><br />
+            
             <TextareaAutosize
                 aria-label="empty textarea"
                 placeholder="Descriptions"
                 minRows={6}
                 style={{ width: 250 }}
                 name="description"
-                value={values.description}
-                onChange={Inputs}
-                />
-                <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                 <NativeSelect
+                value={props.default?props.default.description:values.description}
+                onChange={Inputs}/>
+
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                 
+            <NativeSelect
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 name="status"
-                defaultValue= 'todo'
+                defaultValue= {props.default?props.default.status:'todo'}
                 label= "status"
-                onChange={Inputs}
-                >
-                {/* {statusOptions&&statusOptions.map((Item) => <MenuItem value={Item} >{Item}</MenuItem>)} */}
-                <option value='todo' >Todo</option>
+                onChange={Inputs}>
+                    
+                <option value='todo'>Todo</option>
                 <option value='completed'>Completed</option>
 
-            </NativeSelect><br />
+            </NativeSelect>
+            <br/>
+
             <Button variant="contained" onClick={InputValues}>Enter</Button>
         </div>
+        </div>, document.getElementById('portal')
+
     )
 }
 

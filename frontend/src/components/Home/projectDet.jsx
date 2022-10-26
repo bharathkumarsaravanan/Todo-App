@@ -5,6 +5,7 @@ import Tasks from "./tasks";
 import {Button} from "@mui/material";
 import CreatePopup from "./popups/CreateTask";
 import ViewPage from "./popups/ViewTask";
+import {motion} from "framer-motion"
 
 function ProjectDet(project){
 
@@ -22,6 +23,16 @@ function ProjectDet(project){
                 })
     }
 
+    var CreatTaskFetch = useCallback((NewItem) =>{
+        return fetch('http://localhost:4000/tudos',{
+                method: "POST",
+                body: JSON.stringify(NewItem),
+                headers: {'Content-type': 'application/json; charset=UTF-8'}
+                })
+                .then(response => response.json())
+                .then(result => console.log(result));
+    })
+
     useEffect(() => {
         tasksFetch();
     },[])
@@ -31,24 +42,27 @@ function ProjectDet(project){
     }
     function ViewPopup(){
         setView(prev => !prev)
-        console.log(view)
+        console.log("view",view)
     }
 
     function AddTask(newTask){
+
+        CreatTaskFetch(newTask)
+
         if(newTask.status==='todo'){
             setTasks(prev =>{
-                return [newTask,...prev]
+                return [...prev,newTask]
             })
         }else{
             setcompleted(prev =>{
-                return [newTask,...prev]
+                return [...prev,newTask]
             })
         }
        
     }
 
     function RemoveTask(id,status){
-        console.log(id)
+        // console.log(id)
         if(status==='todos'){
             setTasks((prev) => {
                 return prev.filter((items)=> {
@@ -66,29 +80,41 @@ function ProjectDet(project){
     }
 
     return(
-        <div className="projectList">
+        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{delay: 1}} className="projectList">
             <div style={{display:'flex',gap:'45rem'}}>
-                <Typography variant="h4" style={{width:'30rem'}} gutterBottom>
+                <motion.div animate={{x: 0, opacity: 1}} initial={{x: -100,opacity: 0}} transition={{delay: 1, duration: 1}}><Typography variant="h4" style={{width:'30rem',fontWeight:'6px'}} gutterBottom>
                     {project.title}
-                </Typography>
+                </Typography></motion.div>
                 <div style={{display:'flex',gap:'2rem', padding:'14px 10px 0px 0px',marginBottom:'10px'}}>
-                <Button variant="contained" onClick={TaskPopup}>Add</Button>
-                <Button variant="contained" onClick={ViewPopup}>View</Button>
+                <Button 
+                    variant="contained" 
+                    component={motion.button}
+                    // initial={{scale:1}}
+                    animate={{scale:[0,1.5,1]}}
+                    transition={{delay:2.3,duration:0.4}} 
+                    onClick={TaskPopup}>
+                        Add
+                    </Button>
+                <Button 
+                    variant="contained" 
+                    component={motion.button}
+                    // initial={{scale:1}}
+                    animate={{scale:[0,1.5,1]}}
+                    transition={{delay:2.5,duration:0.4}} 
+                    onClick={ViewPopup}>
+                    View
+                    </Button>
                 </div>
             </div>
         
-        <div className="projectContainer">
-            {tasks&&tasks.map((list,index) => <Tasks key={index} id={list.id} title={list.title} description={list.description} page='index' />)}
-        </div>
+        <motion.div initial={{x: -100}} animate={{x: 0}} transition={{delay: 1.2}} className="projectContainer">
+            {tasks&&tasks.map((list,index) => <Tasks key={index} delay={index} task={list} page='index' />)}
+        </motion.div>
 
-        <div className="popup" style={{display:!popup&&'none',width: '15rem'}}>
-            <CreatePopup project={project.id} popup={TaskPopup} Add={AddTask} />
-        </div>
+            <CreatePopup portal={popup} project={project.id} popup={TaskPopup} getValue={AddTask} default={false} />
 
-        <div style={{display: !view&&'none'}} >
-            <ViewPage tasks={tasks} completed={completed} title={project.title} closeBtn={ViewPopup} remove={RemoveTask} />
-        </div>
-    </div>
+            <ViewPage visible={view} tasks={tasks} completed={completed} title={project} closeBtn={ViewPopup} remove={RemoveTask} />
+    </motion.div>
     )
 
 }

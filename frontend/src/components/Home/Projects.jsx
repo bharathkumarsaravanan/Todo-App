@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
+import {motion} from "framer-motion"
 
 
 function Projects(){
@@ -32,18 +33,23 @@ function Projects(){
     }
 
     return(
-        <TableContainer component={Paper}>
+        <TableContainer 
+            style={{backgroundColor:'white'}} 
+            component={motion.div}
+            animate={{opacity:1}}
+            initial={{opacity:0}}
+            transition={{duration:1}}>
             <Button variant="outlined" color="info" onClick={createItem}>Create</Button>            
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>user Name</TableCell>
+                        <TableCell>no</TableCell>
                         <TableCell>App name</TableCell>
-                        <TableCell>Status</TableCell>
+                        {/* <TableCell>Status</TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {lists.map((list,index) => <Rows columns= {list} key={index}/>)}
+                    {lists.map((list,index) => <Rows columns= {list} key={index} delay={index} />)}
                 </TableBody>
             </Table>
         </TableContainer>

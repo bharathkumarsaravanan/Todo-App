@@ -1,19 +1,22 @@
 import React from "react";
 import { Typography } from "@mui/material";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import {motion} from "framer-motion"
 
 
 function Tasks(task){
 
 
     return(
-        <div className="task" style={{position:'relative'}}>
+        <motion.div animate={{scale: [0,1.1,1]}}  transition={{delay: 1.5, duration: 0.6}} >
+        <div className="task" style={{position:'relative'}} onDoubleClick={() => task.DoubleClickEvent(task.task)} >
             <Typography variant="h5" gutterBottom>
-                {task.title}
+                {task.task.title}
             </Typography>
             {task.page==='view'&&<DeleteOutlineIcon style={{color:'#395B64', opacity:'0.5', position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} onClick={() => task.delete(task.id,task.status)} />}
-            <Typography className="taskTitle" variant="body1" gutterBottom>{task.description}</Typography>
+            <Typography className="taskTitle" variant="body1" gutterBottom>{task.task.description}</Typography>
         </div>
+        </motion.div>
     )
 
 }

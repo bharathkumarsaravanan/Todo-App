@@ -14,7 +14,7 @@ function View(){
     const [viewItem, setViewItem] = useState({})
     const [title, setTitle] = useState({})
     var {id} = useParams();
-    console.log(id);
+    // console.log(id);
 
     const ViewFetch = () => {
         return fetch('http://localhost:4000/view/'+ id)
@@ -42,10 +42,10 @@ function View(){
         ViewFetch();
     },[])
 
-    console.log(viewItem)
+    // console.log(viewItem)
 
     function RemoveTools(){
-        console.log(viewItem.id);
+        // console.log(viewItem.id);
 
         RemoveToolFetch({id: viewItem.id})
 

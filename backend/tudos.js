@@ -57,22 +57,28 @@ router.get('/tudos/:id',function(req,res){
 
     knex('tasks')
     .join('tudos','tudos.id','=','tasks.projectId')
-    .select('tasks.title','tasks.id','tasks.description')
+    .select('tasks.title','tasks.id','tasks.projectId','tasks.description','tasks.status')
     .where('tudos.id',id)
     .andWhere('tasks.status','todo')
-    .orderBy('tasks.id','desc')
+    // .orderBy('tasks.id','desc')
     .then((tasks) => 
 
     knex('tasks')
     .join('tudos','tudos.id','=','tasks.projectId')
-    .select('tasks.title','tasks.id','tasks.description')
+    .select('tasks.title','tasks.id','tasks.projectId','tasks.description','tasks.status')
     .where('tudos.id',id)
     .andWhere('tasks.status','completed')
-    .orderBy('tasks.id','desc')
+    // .orderBy('tasks.id','desc')
     .then((completed)=>
     
     res.send({tasks:tasks,completed:completed})));
 });
+
+router.get('/tasks/:id',function(req,res){
+    var id = req.params.id;
+    console.log(id);
+    res.send({message:'cnjcnj'})
+})
 
 router.post('/tudos/tasks/delete',function(req,res){
     var body = req.body;
@@ -80,6 +86,16 @@ router.post('/tudos/tasks/delete',function(req,res){
 
     knex('tasks')
     .del()
+    .where('id',body.id)
+    .then(() => res.send({message:'task deleted successfully'}))
+})
+
+router.post('/tudos/tasks/edit',function(req,res){
+    var body = req.body;
+    console.log(body);
+
+    knex('tasks')
+    .update()
     .where('id',body.id)
     .then(() => res.send({message:'task deleted successfully'}))
 })

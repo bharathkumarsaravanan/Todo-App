@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Button from '@mui/material/Button';
+import {motion} from "framer-motion";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Options from "./popups/options";
 
 
 
@@ -32,10 +35,14 @@ function Rows(listItem){
     const showPath = `/show/${listItem.columns.id}`;
 
     return(
-        <TableRow>
-            <TableCell>{listItem.columns.userName}</TableCell>
+        <TableRow component={motion.row} animate={{x: 0,opacity:1}} initial={{x: -200,opacity:0}} transition={{duration:1,delay:listItem.delay!==0?listItem.delay*0.2:0}}>
+            <TableCell>{listItem.delay + 1}</TableCell>
             <TableCell>{listItem.columns.title}</TableCell>
-            <TableCell>{listItem.columns.completed? 'completed':'not completed'}</TableCell>
+            {/* <TableCell>{listItem.columns.completed? 'completed':'not completed'}</TableCell> */}
+            <TableCell>
+                <MoreVertIcon  />
+                {/* <Options /> */}
+            </TableCell>
             <TableCell><Button variant="outlined" color="error"  onClick={DeleteItem}>Delete</Button></TableCell>
             <TableCell><Link to= {path} ><Button variant="contained" color="success">Edit</Button></Link></TableCell>
             <TableCell><Link to= {showPath}><Button variant="contained" color="info">View</Button></Link></TableCell>
