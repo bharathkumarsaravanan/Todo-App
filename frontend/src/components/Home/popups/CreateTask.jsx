@@ -9,6 +9,8 @@ import {MenuItem} from "@mui/material";
 import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import CloseIcon from '@mui/icons-material/Close';
+import {motion} from "framer-motion";
+import Alert from '@mui/material/Alert';
 
 
 function CreatePopup(props){
@@ -44,7 +46,12 @@ function CreatePopup(props){
 
     function InputValues(){
         console.log(values);
-        props.getValue(values);
+        if(values.title === '' || values.description === ''){
+            console.log('empty value')
+        }else{
+            props.getValue(values);
+
+        }
         setValues({title:'',description:''})
         props.popup()
     }
@@ -52,9 +59,9 @@ function CreatePopup(props){
     if(!props.portal) return null
 
     return ReactDOM.createPortal(
-        <div className="newPortal">
+        <motion.div animate={{opacity:[0,1]}} transition={{duration:1}} className="newPortal">
 
-        <div className="popup" style={{boxShadow:'15px 0px 70px -40px #B2B2B2',borderLeft:'1px solid #B2B2B2',borderBottom:'1px solid #B2B2B2'}}>
+        <motion.div animate={{y:[-1000,-150]}} transition={{delay:0.3}} className="popup create">
             <CloseIcon onClick={() => props.popup()} style={{position:'absolute',right:'10px',top:'8px',cursor:'pointer'}}  />
 
             <Select
@@ -98,8 +105,8 @@ function CreatePopup(props){
             <br/>
 
             <Button variant="contained" onClick={InputValues}>Enter</Button>
-        </div>
-        </div>, document.getElementById('portal')
+        </motion.div>
+        </motion.div>, document.getElementById('portal')
 
     )
 }

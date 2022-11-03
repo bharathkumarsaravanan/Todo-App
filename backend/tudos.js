@@ -28,7 +28,7 @@ const knex = require('knex')({
 
 
 router.use(function timeLog(req,res,next){
-    console.log('Time;',Date.now().toString())
+    // console.log('Time;',Date.now().toString())
     next();
 });
 
@@ -47,7 +47,11 @@ router.post('/tudos',function(req,res){
 
     knex.insert(body)
     .into('tasks')
-    .then(() => res.send({message:'Task added successfully'}));
+    .then((id) =>
+        knex('tasks')
+        .select('*')
+        .where('id', id)
+        .then((Item) => res.send({Item: Item})))
 
 })
 
@@ -95,9 +99,10 @@ router.post('/tudos/tasks/edit',function(req,res){
     console.log(body);
 
     knex('tasks')
-    .update()
+    .update({status: body.status})
     .where('id',body.id)
-    .then(() => res.send({message:'task deleted successfully'}))
+    .then(() => res.send({message: 'your task updated to'+body.status}))
+
 })
 
 

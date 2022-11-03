@@ -5,7 +5,8 @@ import Tasks from "./tasks";
 import {Button} from "@mui/material";
 import CreatePopup from "./popups/CreateTask";
 import ViewPage from "./popups/ViewTask";
-import {motion} from "framer-motion"
+import {motion} from "framer-motion";
+
 
 function ProjectDet(project){
 
@@ -13,15 +14,16 @@ function ProjectDet(project){
     const [completed,setcompleted] = useState();
     const [popup,setPopup] = useState(false)
     const [view,setView] = useState(false)
+    const [newitem,setnewItem] =useState({id:''});
 
-    const tasksFetch = () => {
+    const tasksFetch = useCallback(() => {
         return fetch('http://localhost:4000/tudos/'+project.id)
                 .then(response => response.json())
                 .then((task) => {
                     setTasks(task.tasks)
                     setcompleted(task.completed)
                 })
-    }
+    })
 
     var CreatTaskFetch = useCallback((NewItem) =>{
         return fetch('http://localhost:4000/tudos',{
@@ -30,12 +32,15 @@ function ProjectDet(project){
                 headers: {'Content-type': 'application/json; charset=UTF-8'}
                 })
                 .then(response => response.json())
-                .then(result => console.log(result));
+                .then(result => {
+                    console.log(result.Item[0])
+                    setnewItem(result.Item[0])
+                });
     })
 
-    useEffect(() => {
-        tasksFetch();
-    },[])
+
+    tasksFetch();
+
 
     function TaskPopup(){
         setPopup((prev) => !prev)
@@ -46,29 +51,30 @@ function ProjectDet(project){
     }
 
     function AddTask(newTask){
-
         CreatTaskFetch(newTask)
-
+        // newTask.id = newid.id;
+        console.log(newTask);
         if(newTask.status==='todo'){
             setTasks(prev =>{
-                return [...prev,newTask]
+                return [...prev,newitem]
             })
         }else{
             setcompleted(prev =>{
-                return [...prev,newTask]
+                return [...prev,newitem]
             })
         }
        
     }
 
     function RemoveTask(id,status){
-        // console.log(id)
+        console.log(id)
         if(status==='todos'){
             setTasks((prev) => {
                 return prev.filter((items)=> {
                     return items.id !== id
                 })
             })
+            console.log(tasks)
         }else{
             setcompleted((prev) => {
                 return prev.filter((items)=> {
@@ -76,6 +82,7 @@ function ProjectDet(project){
                 })
             })
         }
+
        
     }
 
@@ -113,7 +120,7 @@ function ProjectDet(project){
 
             <CreatePopup portal={popup} project={project.id} popup={TaskPopup} getValue={AddTask} default={false} />
 
-            <ViewPage visible={view} tasks={tasks} completed={completed} title={project} closeBtn={ViewPopup} remove={RemoveTask} />
+            <ViewPage visible={view} tasks={tasks} completed={completed} project={project} closeBtn={ViewPopup} remove={RemoveTask} />
     </motion.div>
     )
 

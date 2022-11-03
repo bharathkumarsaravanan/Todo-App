@@ -144,6 +144,64 @@ body{
     border-radius: 10px;
 }
 .viewHeader{
-    height: 73px;
+    height: 130px;
     background-color: #4e5055;
+    position: relative;
+    margin: 0px -8px 0 -8px;
+}
+.viewHeadTitle{
+    color: #5da7db;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 500;
+    position: absolute;
+    font-size: 60px;
+    left: 10rem;
+    top:-1rem;
+}
+.viewHeaderLinks{
+    color: #7f8487;
+    position: absolute;
+    top: 6rem;
+    left: 11rem;
+    font-family: 'Sarabun', sans-serif;
+}
+.viewHeaderSearch{
+    height: 40px;
+    width: 13rem;
+    border-radius: 20px;
+    padding-left: 20px;
+    position: absolute;
+    right: 8rem;
+    top: 3.5rem;
+}
+.viewList{
+    position: absolute;
+    left: 5rem;
+    top: 14rem;
+}
+.viewList a{
+    color: #7f8487;
+    line-height: 5rem;
+}
+.verticalLine{
+    background-color: #73777B;
+    opacity: 0.2;
+    position: absolute;
+    width: 3px;
+    height: 22rem;
+    top: 16rem;
+    left: 17rem;
+}
+.viewTitle{
+    color: #5da7db;
+    position: absolute;
+    top: 10rem;
+    left: 30rem;
+}
+.overviewPara{
+    width: 60%;
+    padding-top: 2rem;
+    padding-left: 4rem;
+    color: #4e5055;
+    /* background-color: #4e5055; */
 }

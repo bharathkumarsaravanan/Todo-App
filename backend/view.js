@@ -23,7 +23,7 @@ const knex = require('knex')({
 });
 
 router.use(function timeLog(req,res,next){
-    console.log('Time;',Date.now().toString())
+    // console.log('Time;',Date.now().toString())
     next();
 });
 
@@ -31,20 +31,10 @@ router.get('/view/:id',function(req,res){
     console.log(req.params.id);
     var id = req.params.id
     knex('tudos')
-    .select('title')
+    .select('title','description')
     .where('id',id)
-    .then((a) => 
-    
-    knex('projectTools')
-    .join('tudos','projectTools.ProjectId','=','tudos.id')
-    .join({a:'technologies'},'projectTools.frontend','=','a.id')
-    .join({b:'technologies'},'projectTools.backend','=','b.id')
-    .join({c:'technologies'},'projectTools.database','=','c.id')
-    .select('projectTools.id','tudos.title','a.name as frontend','b.name as backend','c.name as database')
-    .where('tudos.id',id)
     .then((data) => 
-    
-res.send({Item:data, title:a})));
+      res.send({Item:data}));
 })
 
 router.get('/view/:id/add',function(req,res){

@@ -9,6 +9,7 @@ app.use(cors())
 app.use(require('./index'))
 app.use(require('./view'))
 app.use(require('./tudos'))
+app.use(require('./progress'))
 
 
 

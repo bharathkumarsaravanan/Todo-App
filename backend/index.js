@@ -23,14 +23,14 @@ const knex = require('knex')({
 });
 
 router.use(function timeLog(req,res,next){
-    console.log('Time;',Date.now().toString())
+    // console.log('Time;',Date.now().toString())
     next();
 });
 
 router.get('/',function(req,res){
     knex('tudos')
     .join('Users','tudos.userId','=','Users.id')
-    .select('tudos.id','Users.name as userName','tudos.title','tudos.completed')
+    .select('tudos.id','Users.name as userName','tudos.title')
     .then((tudoItems) => res.send({tudoItems}))
 })
 
@@ -57,8 +57,7 @@ router.post('/create',function(req,res){
 
     knex.insert({
         userId: newElement.userId,
-        title:newElement.title,
-        completed: newElement.status
+        title:newElement.title
     }).into('tudos')
     .then(() => res.send({message:'Created successfully'}))
 
@@ -70,7 +69,7 @@ router.get('/edit/:id',function(req,res){
 
     knex('tudos')
     .join('Users','tudos.userId','=','Users.id')
-    .select('tudos.id','Users.id as userId','Users.name as userName','tudos.title','tudos.completed')
+    .select('tudos.id','Users.id as userId','Users.name as userName','tudos.title')
     .where('tudos.id',id)
     .then((data) =>  
         knex('users')
@@ -86,8 +85,7 @@ router.post('/edit/:id',function(req,res){
     knex('tudos')
     .update({
         userId: newItem.userId,
-        title: newItem.title,
-        completed: newItem.completed 
+        title: newItem.title
     })
     .where('id',newItem.id)
     .then(() => res.send({result: 'Edited Successfully'}))

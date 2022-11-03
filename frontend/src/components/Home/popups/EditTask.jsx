@@ -69,7 +69,7 @@ function EditPopUp(props){
     return ReactDOM.createPortal(
         <div className="newPortal">
 
-            <div className="popup" style={{boxShadow:'15px 0px 70px -40px #B2B2B2',borderLeft:'1px solid #B2B2B2',borderBottom:'1px solid #B2B2B2'}}>
+            <div className="popup create" style={{boxShadow:'15px 0px 70px -40px #B2B2B2',borderLeft:'1px solid #B2B2B2',borderBottom:'1px solid #B2B2B2'}}>
                 <CloseIcon onClick={() => props.popup()} style={{position:'absolute',right:'10px',top:'8px',cursor:'pointer'}}  />
 
                 <Select
