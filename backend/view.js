@@ -37,6 +37,19 @@ router.get('/view/:id',function(req,res){
       res.send({Item:data}));
 })
 
+router.get('/view/:id/home/packages',function(req,res){
+    var id = req.params.id;
+    console.log(id)
+
+    knex('packages')
+        .join('tudos','tudos.id','=','packages.projectId')
+        .join('technologies','technologies.id','packages.technologyId')
+        .select('technologies.name','technologies.use')
+        .where('packages.projectId',id)
+        .then((packages) => res.send({packages: packages}))
+
+})
+
 router.get('/view/:id/add',function(req,res){
     console.log(req.params.id);
     var id = req.params.id;

@@ -12,7 +12,7 @@ function ViewHome(){
         <div>
             <Lists id={id} />
             <div className="verticalLine"></div>
-            <Typography variant="h3" className="viewTitle">Online music exploring</Typography>
+            {/* <Typography variant="h3" className="viewTitle">Online music exploring</Typography> */}
             <Outlet />
         </div>
     )

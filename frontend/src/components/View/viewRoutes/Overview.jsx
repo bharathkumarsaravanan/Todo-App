@@ -15,6 +15,7 @@ function Overview(){
     })
 
     viewFetch();
+    console.log('overview')
 
     return(
         <div style={{position:'absolute',top:'15rem',left:'20rem',textAlign:'left'}}>
