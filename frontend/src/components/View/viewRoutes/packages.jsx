@@ -25,8 +25,10 @@ function Overview(){
 
 
     return(
-        <div style={{position:'relative',top:'15rem',left:'20rem'}}>
-            {packages&&packages.map((Item,index) => <PackageList key={index} name={Item.name} use={Item.use} />)}
+        <div>
+            <div className='packagesList'>
+                {packages&&packages.map((Item,index) =>  <PackageList key={index} name={Item.name} use={Item.use} />)}
+            </div>
         </div>
     )
 }

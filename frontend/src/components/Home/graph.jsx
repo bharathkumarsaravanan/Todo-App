@@ -1,16 +1,37 @@
 import React from "react";
 import {CChart} from '@coreui/react-chartjs';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Graph(props){
 
-    console.log(props.data)
 
-    var color = props.bgColor;
     const [labels, setLabels] = useState([])
+    const [values, setValues] = useState([])
     var data = props.data;
 
+    function sep(){
+        if(labels.length===0){
+        data.length!==0&&data.map((Item) => {
+            setLabels(prev => [...prev, Item.App])
+        })
+        }
 
+        if(values.length===0){
+            data.length!==0&&data.map((Item) => {
+                setValues(prev => [...prev, Item.completed])
+            })
+            }
+
+    }
+
+    sep();
+    console.log(labels);
+    console.log(values);
+    
+
+   
+
+   
        
    
     
@@ -19,14 +40,15 @@ function Graph(props){
 
     return(
         <CChart
+            className="chart"
             type={props.type}
             data={{
-                labels: ['xsmm','xmlsa'],
+                labels: labels,
                 datasets: [
                 {
-                    label: "progress",
-                    backgroundColor: 'blue',
-                    data: [2,5],
+                    label: props.heading,
+                    backgroundColor: props.bgColor,
+                    data: values,
                 },
                 ],
             }}

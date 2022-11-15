@@ -1,27 +1,48 @@
 import React from "react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
+import {Button} from "@mui/material";
+import EditPopUp from "../Popups/EditProject";
 
 function Overview(){
 
-    const [desc,setDesc] = useState('')
+    const [projectDetails,setProjectDetails] = useState();
+    const [editPop, setEditPop] = useState(false)
     const {id} = useParams();
 
     const viewFetch = useCallback(() => {
         return fetch('http://localhost:4000/view/'+id)
                 .then(response => response.json())
-                .then((items) => setDesc(items.Item[0].description))
+                .then((items) => setProjectDetails(items.Item[0]))
     })
-
-    viewFetch();
-    console.log('overview')
+    const editFetch = useCallback((newVal) => {
+        fetch('http://localhost:4000/view/'+id+'/update',{
+            method:'POST',
+            body: JSON.stringify(newVal),
+            headers: {'Content-type': 'application/json; charset=UTF-8'}
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+    })
+    
+        viewFetch();
+    function editedValue(newValue){
+        editFetch(newValue)
+    }
 
     return(
-        <div style={{position:'absolute',top:'15rem',left:'20rem',textAlign:'left'}}>
+        <div style={{position:'absolute',top:'0rem',left:'20rem',textAlign:'left'}}>
             <Typography variant="h3">Overview</Typography>
-            <Typography variant="body1" gutterBottom className="overviewPara">{desc}</Typography>
-
+            <Typography variant="body1" gutterBottom className="overviewPara">{projectDetails&&projectDetails.description}</Typography>
+            <Button 
+                variant='contained' 
+                size='small'
+                onClick={() => setEditPop(true)} 
+                style={{backgroundColor:'#0096FF', position:'absolute',left:'50rem'}}>
+                Update
+                </Button>
+            <EditPopUp visible={editPop} setVisible={setEditPop} defaultId={id} returnValue={editedValue} />
         </div>
     )
 }

@@ -13,7 +13,7 @@ function ViewPage(props){
     const [status,setStatus] = useState();
     const [defaultValue,setDefaultValue] = useState();
 
-   
+    // console.log(props.tasks);
 
     const DeleteFetch = useCallback((id) => {
         return fetch('http://localhost:4000/tudos/tasks/delete',{

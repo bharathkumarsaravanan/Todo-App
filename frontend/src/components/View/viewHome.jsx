@@ -9,11 +9,9 @@ import { useParams } from "react-router-dom";
 function ViewHome(){ 
     const {id} = useParams();
     return(
-        <div>
+        <div className="viewHome">
             <Lists id={id} />
             <div className="verticalLine"></div>
-            {/* <Typography variant="h3" className="viewTitle">Online music exploring</Typography> */}
-            <Outlet />
         </div>
     )
 }

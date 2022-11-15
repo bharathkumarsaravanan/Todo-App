@@ -29,52 +29,75 @@ router.use(function timeLog(req,res,next){
 
 router.get('/',function(req,res){
     knex('tudos')
-    .join('Users','tudos.userId','=','Users.id')
-    .select('tudos.id','Users.name as userName','tudos.title')
+    .select('*')
     .then((tudoItems) => res.send({tudoItems}))
 })
 
 router.post('/delete',function(req,res){
     console.log(req.body.id);
-    // const a = res.json({requestBody: req.body}) 
     var deleteId = req.body.id;
     knex('tudos')
     .del()
     .where('id',deleteId)
-    .then(() => res.send({result :`${deleteId} deleted`}));
+    .then(() =>
+        knex('packages')
+        .del()
+        .where('projectId', deleteId)
+        .then(() => 
+            knex('tasks')
+            .del()
+            .where('projectId', deleteId)
+            .then(() => res.send({result :`${deleteId} deleted`}))));
 })
 
 router.get('/create',function(req,res){
-    knex('Users')
+    knex('technologies')
     .select('*')
-    .then((users) => res.send({users:users}));
+    .then((tech) => res.send({techs: tech}))
 })
 
 router.post('/create',function(req,res){
-    console.log(req.body);
-
-    var newElement = req.body;
-
-    knex.insert({
-        userId: newElement.userId,
-        title:newElement.title
-    }).into('tudos')
-    .then(() => res.send({message:'Created successfully'}))
+    console.log(req.body.project);
+    console.log(req.body.packs);
+    var newElement = req.body.project;
+    var packages = req.body.packs;
+    knex.insert(newElement)
+    .into('tudos')
+    .then((projectId) => 
+        knex('tudos')
+        .select('*')
+        .where('id', projectId)
+        .then((newItem) => 
+            res.send({newItem: newItem}),
+            packages.map((pack,index) => {
+                if(index !== 0){
+                    knex.insert({
+                        projectId: projectId,
+                        technologyId: pack.id
+                    })
+                    .into('packages')
+                    .then()
+                
+            }}))
+     )
+      
+        // .then((newItem) => )
 
 })
 
 router.get('/edit/:id',function(req,res){
     console.log(req.params.id);
     var id = req.params.id;
-
     knex('tudos')
-    .join('Users','tudos.userId','=','Users.id')
-    .select('tudos.id','Users.id as userId','Users.name as userName','tudos.title')
-    .where('tudos.id',id)
-    .then((data) =>  
-        knex('users')
-        .select('*')
-        .then((users) => res.send({Editdata:data,users:users}) ))
+    .select('*')
+    .where('id', id)
+    .then((data) => 
+        knex('packages')
+        .join('technologies','packages.technologyId','=','technologies.id')
+        .select('technologies.name')
+        .where('packages.projectId',id)
+        .then((packages) => res.send({defaultData: data, defaultPackages: packages })
+    ))
 
 })
 

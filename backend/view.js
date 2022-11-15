@@ -37,6 +37,17 @@ router.get('/view/:id',function(req,res){
       res.send({Item:data}));
 })
 
+router.post('/view/:id/update',function(req,res){
+    console.log(req.params.id)
+    console.log(req.body)
+    var projId = req.params.id;
+    var body = req.body;
+    knex('tudos')
+    .where('id', projId)
+    .update(body)
+    .then(() => res.send({'result': 'edited'}))
+})
+
 router.get('/view/:id/home/packages',function(req,res){
     var id = req.params.id;
     console.log(id)
@@ -50,45 +61,6 @@ router.get('/view/:id/home/packages',function(req,res){
 
 })
 
-router.get('/view/:id/add',function(req,res){
-    console.log(req.params.id);
-    var id = req.params.id;
-    knex('technologies')
-    .select('*')
-    .where('type','frontend')
-    .then((frame) =>
-    
-    knex('technologies')
-    .select('*')
-    .where('type','Server')
-    .then((server) =>
-    
-    knex('technologies')
-    .select('*')
-    .where('type','database')
-    .then((container) =>
-        res.send({frontend:frame,backend:server,database:container})
-    )
-    )
-    )
-    
-});
-
-router.post('/view/:id/add',function(req,res) {
-
-    var projectId = req.params.id;
-    var newEntry = req.body;
-    console.log(projectId,newEntry)
-
-    knex.insert({
-        ProjectId: projectId,
-        frontend: newEntry.frontend,
-        backend: newEntry.backend,
-        database: newEntry.database,
-    }).into('projectTools')
-    .then(() => res.send({message: 'Tools Added'}));
-
-})
 
 router.post('/view/:id/remove', function(req,res){
     var body = req.body;

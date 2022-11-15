@@ -38,7 +38,14 @@ router.get('/progress',function(req,res){
     .select('tudos.title as App',knex.raw('count(*) as completed'))
     .groupBy('tudos.title')
     .where('status','completed')
-    .then((values) => res.send({graphData: values}))
+    .then((values) => 
+        knex('tudos')
+        .join('tasks','tudos.id','=','tasks.projectId')
+        .select('tudos.title as App',knex.raw('count(*) as completed'))
+        .groupBy('tudos.title')
+        .where('status','todo')
+        .then((pending) => res.send({completed: values,pending: pending})))
 })
+
 
 module.exports = router;

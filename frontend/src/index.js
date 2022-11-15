@@ -1,7 +1,6 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from './components/Home/home';
-import Create from './components/Create/create';
 import Edit from './components/Edit/edit';
 import View from './components/View/view';
 import Add from './components/View/add';
@@ -17,14 +16,22 @@ import Features from './components/View/viewRoutes/features';
 import Git from './components/View/viewRoutes/git';
 import About from './components/View/viewRoutes/about';
 
+import Nested from './components/NestedPractice/Nested';
+import First from './components/NestedPractice/first';
+import Sec from './components/NestedPractice/sec';
+import Thir from './components/NestedPractice/third';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 export default function App(){
       return(
         <BrowserRouter>
           <Routes>
+            <Route path = '/nestedroutes' element={<Nested />} >
+              <Route path='first' element={<First />} />
+              <Route path='sec' element={<Sec />} />
+              <Route path='third' element={<Thir />} />
+            </Route>
             <Route path = '/' element={<Home/>}/>
-            <Route path = '/create' element={<Create/>} />
             <Route path = '/edit/:id' element={<Edit/>} />
             <Route path = '/show/:id' element={<View/>} > 
               <Route path = 'home' element = {<ViewHome/>}> 

@@ -21,7 +21,7 @@ const knex = require('knex')({
 // db.run('CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING, description STRING, projectId INT)');
 // db.run('CREATE TABLE packages(id INTEGER PRIMARY KEY AUTOINCREMENT, projectId INT, technologyId INT)');
 // db.run('Drop TABLE projectTools');
-// db.run('ALTER TABLE tasks ADD COLUMN status STRING');
+// db.run('ALTER TABLE tudos DROP COLUMN userId');
 
 // db.run('ALTER TABLE technologies RENAME COLUMN type to use')
 
@@ -36,12 +36,19 @@ const knex = require('knex')({
 // .where('status','completed')
 // .then((e) => console.log(e))
 
-knex('packages')
-.join('tudos','tudos.id','=','packages.projectId')
-.join('technologies','technologies.id','packages.technologyId')
-.select('tudos.title','technologies.name')
-.where('packages.projectId',28)
-.then((e) => console.log(e))
+// knex('packages')
+// .join('tudos','tudos.id','=','packages.projectId')
+// .join('technologies','technologies.id','packages.technologyId')
+// .select('tudos.title','technologies.name')
+// .where('packages.projectId',28)
+// .then((e) => console.log(e))
+
+
+
+        knex('tudos')
+        .select('*')
+        .then((e) => console.log(e))
+
 
 
 

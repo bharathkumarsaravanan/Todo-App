@@ -199,9 +199,90 @@ body{
     left: 30rem;
 }
 .overviewPara{
-    width: 60%;
+    width: 300%;
     padding-top: 2rem;
     padding-left: 4rem;
     color: #4e5055;
     /* background-color: #4e5055; */
+}
+.packagesList{
+    position:absolute;
+    top: 1rem;
+    left: 20rem;
+    width: 60rem;
+    height: 31rem;
+    overflow-y: scroll;
+    /* line-height: 6rem; */
+}
+.packagesList::-webkit-scrollbar{
+    display: none;
+}
+.viewTasksComponent{
+    position: absolute;
+    left: 15rem;
+    top: 0rem;
+    width: 70rem;
+    height: 31rem;
+    padding: 0 2rem 0 2rem;
+    /* background-color: #4e5055; */
+    overflow-y: scroll;
+    align-items: center;
+    line-height: 4rem;
+}
+.viewTasksComponent::-webkit-scrollbar{
+    display: none;
+}
+.ViewTaskItem{
+    background-color: white;
+    height: fit-content;
+    width: 20rem;
+    border-radius: 1rem;
+    box-shadow: 1px 10px 25px -10px #B2B2B2;
+    transition: all 200ms ease-in-out;
+    border-top: 3px solid rgba(93, 167, 219, 0.4);
+    border-right: 3px solid rgba(93, 167, 219, 0.4);
+    z-index: 99;
+}
+.ViewTaskItem:hover{
+    /* position: absolute; */
+    scale: 1.1;
+    box-shadow: 1px 10px 20px -5px #B2B2B2;
+    background-color: rgba(93, 167, 219, 1);
+    color: white;
+    border-top: 3px solid white;
+    border-right: 3px solid white;
+}
+.viewTaskContainer{
+    width: 70rem;
+    height: 20rem;
+    border: 3px solid rgba(115, 119, 123, 0.1);
+    padding-top: 4rem;
+    margin-left: -10px;
+    margin-top: 2rem;
+    /* display: flex; */
+
+    /* background-color: #5da7db; */
+    justify-content: left;
+}
+
+.viewTaskContainer::-webkit-scrollbar{
+    display: none;
+}
+.viewTaskHeaderText{
+    position: absolute;
+    top: 0;
+    left:3rem;
+    background-color: aliceblue;
+    height: 2.2rem;
+    padding: 0px 10px 0px 10px;
+    color: rgba(115, 119, 123, 0.3);
+}
+.chart{
+    width: 40rem;
+    height: 40rem;
+}
+.progressPage{
+    display: flex;
+    gap: 10rem;
+    margin-top: 5rem;
 }
