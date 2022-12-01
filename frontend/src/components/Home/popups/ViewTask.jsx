@@ -66,13 +66,13 @@ function ViewPage(props){
     return ReactDOM.createPortal(
         
         <motion.div animate={{opacity:[0,1]}} transition={{duration:0.6}} className="newPortal">
-            <motion.div animate={{scale:[0,1.1,1]}} transition={{delay:0.6,duration:0.6}} className="popup">
+            <motion.div animate={{scale:[0,1.1,1]}} transition={{delay:0.6,duration:0.6}} style={{width:'45rem', height:'35rem'}} className="popup">
                 <div style={{display:'flex',justifyContent:'center'}}>
                     <motion.div animate={{opacity: 1}} initial={{opacity: 0}} transition={{duration:1}}><Typography variant="h3" gutterBottom>{props.project.title}</Typography></motion.div>
                     <CloseIcon onClick={ClosePopUp} style={{position:'absolute',right:'10px',top:'8px',cursor:'pointer'}}  />
                 </div>
                 <Typography variant="h4" className="viewTaskHeader" style={{top:'5.5rem'}}  gutterBottom>Todos</Typography>
-                <div className="viewTaskContainer" style={{marginTop:'10px'}}>
+                <div className="viewTaskContainer1" style={{marginTop:'10px'}}>
                     {props.tasks&&props.tasks.map((list,index) => 
                     <Tasks 
                         key={index} 
@@ -83,7 +83,7 @@ function ViewPage(props){
                         />)}
                 </div>
                 <Typography variant="h4" className="viewTaskHeader" style={{top:'21.5rem'}} gutterBottom>Completed</Typography>
-                <div className="viewTaskContainer">
+                <div className="viewTaskContainer1">
                     {props.completed&&props.completed.map((list,index) => 
                     <Tasks 
                         key={index} 

@@ -35,6 +35,7 @@ function View(){
         <div style={{ textAlign:'center'}}>
             <Header id={id} title={title&&title} />
             {/* <ViewHome path1={overviewPath} path2={taskPath} />  */}
+            {/* <Typography variant="" */}
             <Outlet />
         </div>
     )

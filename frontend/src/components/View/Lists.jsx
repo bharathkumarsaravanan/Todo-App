@@ -24,15 +24,7 @@ function Lists(){
                 <Link to='features' 
                     style={{textDecoration:selected!=='Features'&&'none'}}
                     onClick={() => setSelected('Features')}>Features
-                </Link><br/>
-                <Link to='github' 
-                    style={{textDecoration:selected!=='GitHub'&&'none'}}
-                    onClick={() => setSelected('GitHub')}>GitHub
-                </Link><br/>
-                <Link to='about' 
-                    style={{textDecoration:selected!=='About'&&'none'}}
-                    onClick={() => setSelected('About')}>About
-                </Link><br/>
+                </Link>
             </nav>
             <Outlet />
         </div>

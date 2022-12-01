@@ -24,14 +24,14 @@ function Tasks(){
         <div className="viewTasksComponent" style={{}}>
             <div>
                 <Typography variant= 'h3' className="viewTaskHeaderText" >Works done</Typography>
-                <div className="viewTaskContainer">
+                <div className="viewWorkContainer">
                     {tasks&&tasks.map((task, index) => <TaskItem key={index} title={task.title} description={task.description} />)}     
                 </div>
                
             </div><br />
             <div>
-                <Typography variant= 'h3' className="viewTaskHeaderText" style={{top:'34rem'}}>Pending Works</Typography>
-                <div className="viewTaskContainer">
+                <Typography variant= 'h3' className="viewTaskHeaderText" style={{top:'31rem'}}>Pending Works</Typography>
+                <div className="viewWorkContainer">
                         {completed&&completed.map((task, index) => <TaskItem key={index} title={task.title} description={task.description} />)}     
                 </div>
             </div>

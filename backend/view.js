@@ -1,18 +1,26 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
+const fs = require('fs')
 
 const path = require('path');
 const bodyParser = require('body-parser')
 
 const sqlite3 = require('sqlite3');
+const multer = require('multer');
+const uploadFeature = multer({dest: 'public/images/features'})
+const fileUpload = require('express-fileupload')
+// const bodyParser = require('body-parser')
 const db = new sqlite3.Database(path.resolve(__dirname,'./data.db'));
 
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(fileUpload());
 
 app.use(express.json());
+
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 const knex = require('knex')({
     client: 'sqlite3',
@@ -38,14 +46,18 @@ router.get('/view/:id',function(req,res){
 })
 
 router.post('/view/:id/update',function(req,res){
-    console.log(req.params.id)
-    console.log(req.body)
     var projId = req.params.id;
     var body = req.body;
     knex('tudos')
     .where('id', projId)
     .update(body)
     .then(() => res.send({'result': 'edited'}))
+})
+
+router.get('/view/home/packages', function(req,res){
+    knex('technologies')
+    .select('*')
+    .then((data) => res.send({data: data}))
 })
 
 router.get('/view/:id/home/packages',function(req,res){
@@ -55,41 +67,63 @@ router.get('/view/:id/home/packages',function(req,res){
     knex('packages')
         .join('tudos','tudos.id','=','packages.projectId')
         .join('technologies','technologies.id','packages.technologyId')
-        .select('technologies.name','technologies.use')
+        .select('technologies.id','technologies.name','technologies.use')
         .where('packages.projectId',id)
         .then((packages) => res.send({packages: packages}))
 
 })
-
-
-router.post('/view/:id/remove', function(req,res){
-    var body = req.body;
-    console.log(body);
-    knex('projectTools')
+router.post('/view/:id/home/packages/update',function(req,res){
+    var projId = req.params.id;
+    var bodyData = req.body;
+    console.log(bodyData)
+    knex('packages')
+    .where('projectId', projId)
     .del()
-    .where('id',body.id)
-    .then(() => res.send({message: 'Tools deleted Successfully'}))
+    .then(() => {
+        bodyData.map((Items) => {
+            knex.insert({
+                projectId: projId,
+                technologyId: Items.id
+            }).into('packages')
+            .then()
+        }),
+        res.send({message:'package updated'})
+    })
+
 })
-
-router.get('/update/:id/update/:listid',function(req,res){
-    var entryId = req.params.listid;
-
-    knex('projectTools')
+router.get('/view/:id/home/features',function(req,res){
+    var projId = req.params.id;
+    // console.log(projId)
+    knex('features')
     .select('*')
-    .where('id',entryId)
-    .then((data) => res.send({selected:data}));
+    .where('projectId', projId)
+    .then((features) => res.send({features: features}))
+})
+router.post('/view/:id/home/features/upload',uploadFeature.single('featureImage'), function(req,res){
+    var imgFile = req.file;
+    var projectId = req.params.id;
+    knex.insert({
+        projectId: projectId,
+        title: 'test'
+    }).into('features')
+    .then((id) => {
+        console.log(imgFile)
+        var ext = path.extname(imgFile.originalname)
+        var newName = id[0]+ext;
+        var newPath = path.join('public','images','features',newName)
+        console.log(newPath)
+        fs.renameSync(imgFile.path,newPath,function(err){
+            if(err){
+                console.log(err);
+            }
+        })
+        knex('features')
+        .update('imgurl',newName)
+        .where('id',id)
+        .then(() => res.send({message: 'sent'}))
+    })
+    
 })
 
-router.post('/update/:id/update/:listid',function(req,res){
-    var body = req.body;
-    var entryId = req.params.listid;
-    console.log(body);  
-
-    knex('projectTools')
-    .where('id',entryId)
-    .update(body)
-    .then(() => res.send({message: 'Tools updated'}))
-
-})
 
 module.exports = router;

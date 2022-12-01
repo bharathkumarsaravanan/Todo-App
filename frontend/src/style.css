@@ -71,7 +71,7 @@ body{
     z-index: 1000;
 }
 
-.viewTaskContainer{
+.viewTaskContainer1{
     display:flex;
     flex-wrap: wrap;
     width: 40rem;
@@ -148,6 +148,31 @@ body{
     background-color: #4e5055;
     position: relative;
     margin: 0px -8px 0 -8px;
+}
+.viewHomeIcon{
+    color: #73777B;
+    /* background-color: #5da7db; */
+    opacity: 0;
+    position: absolute;
+    left: 1rem;
+    top: 5px;
+    transition: all 200ms ease-in-out;
+}
+.viewHomeIcon:hover{
+    opacity: 1;
+    scale: 1.1;
+}
+.editTextArea{
+    width: 17rem;
+    height: 10rem;
+    border-radius: 1rem;
+    padding: 0.7rem;
+    font-size: 1rem;
+    font-family: 'Sarabun', sans-serif;
+    border: 1px solid #D8D8D8;
+}
+.editTextArea::-webkit-scrollbar{
+    display: none;
 }
 .viewHeadTitle{
     color: #5da7db;
@@ -252,11 +277,16 @@ body{
     border-top: 3px solid white;
     border-right: 3px solid white;
 }
-.viewTaskContainer{
+.viewWorkContainer{
     width: 70rem;
     height: 20rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
     border: 3px solid rgba(115, 119, 123, 0.1);
+    border-radius: 2rem;
     padding-top: 4rem;
+    padding-left: .5rem;
     margin-left: -10px;
     margin-top: 2rem;
     /* display: flex; */
@@ -265,7 +295,7 @@ body{
     justify-content: left;
 }
 
-.viewTaskContainer::-webkit-scrollbar{
+.viewWorkContainer::-webkit-scrollbar{
     display: none;
 }
 .viewTaskHeaderText{
@@ -276,6 +306,31 @@ body{
     height: 2.2rem;
     padding: 0px 10px 0px 10px;
     color: rgba(115, 119, 123, 0.3);
+}
+.featureImages{
+    width: 30rem;
+    border-radius: 1rem;
+    box-shadow: 1px 10px 20px -5px #B2B2B2;
+
+    /* height: 20rem; */
+    /* position: absolute; */
+
+}
+.featureImagesContainer::-webkit-scrollbar{
+    display: none;
+}
+.featureImagesContainer{
+    gap: 3rem;
+    padding: 1rem;
+    /* background-color: #4e5055; */
+    width: 70rem;
+    height: 28rem;
+    overflow-y: scroll;
+    position: absolute;
+    top: 0rem;
+    left: 15rem;
+    display: flex;
+    flex-wrap: wrap;
 }
 .chart{
     width: 40rem;
