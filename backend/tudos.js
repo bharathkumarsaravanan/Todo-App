@@ -45,7 +45,13 @@ router.post('/tudos',function(req,res){
     console.log(req.body);
     var body = req.body;
 
-    knex.insert(body)
+    knex.insert({
+        title: body.title,
+        description: body.description,
+        projectId: body.projectId,
+        status: body.status,
+        created_at: knex.raw('CURRENT_TIMESTAMP')
+    })
     .into('tasks')
     .then((id) =>
         knex('tasks')
@@ -99,7 +105,10 @@ router.post('/tudos/tasks/edit',function(req,res){
     console.log(body);
 
     knex('tasks')
-    .update({status: body.status})
+    .update({
+        status: body.status,
+        created_at: knex.raw('CURRENT_TIMESTAMP')
+    })
     .where('id',body.id)
     .then(() => res.send({message: 'your task updated to'+body.status}))
 

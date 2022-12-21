@@ -8,6 +8,7 @@ import EditPopUp from "../Popups/EditProject";
 function Overview(){
 
     const [projectDetails,setProjectDetails] = useState();
+    const [state, setState] = useState(true)
     const [editPop, setEditPop] = useState(false)
     const {id} = useParams();
 
@@ -25,14 +26,15 @@ function Overview(){
         .then(response => response.json())
         .then(data => console.log(data))
     })
-    
+    if(!projectDetails){
         viewFetch();
+    }
     function editedValue(newValue){
         editFetch(newValue)
     }
 
     return(
-        <div style={{position:'absolute',top:'0rem',left:'20rem',textAlign:'left'}}>
+        <div style={{textAlign:'left', width:'20rem', marginLeft:'10rem', marginTop:'5rem'}}>
             <Typography variant="h3">Overview</Typography>
             <Typography variant="body1" gutterBottom className="overviewPara">{projectDetails&&projectDetails.description}</Typography>
             <Button 

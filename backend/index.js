@@ -61,7 +61,11 @@ router.post('/create',function(req,res){
     console.log(req.body.packs);
     var newElement = req.body.project;
     var packages = req.body.packs;
-    knex.insert(newElement)
+    knex.insert({
+        title: newElement.title,
+        description: newElement.description,
+        created_at: knex.raw('CURRENT_TIMESTAMP')
+    })
     .into('tudos')
     .then((projectId) => 
         knex('tudos')
@@ -78,7 +82,7 @@ router.post('/create',function(req,res){
                     .into('packages')
                     .then()
                 
-            }}))
+            }})),
      )
       
         // .then((newItem) => )

@@ -93,7 +93,6 @@ router.post('/view/:id/home/packages/update',function(req,res){
 })
 router.get('/view/:id/home/features',function(req,res){
     var projId = req.params.id;
-    // console.log(projId)
     knex('features')
     .select('*')
     .where('projectId', projId)
@@ -102,9 +101,13 @@ router.get('/view/:id/home/features',function(req,res){
 router.post('/view/:id/home/features/upload',uploadFeature.single('featureImage'), function(req,res){
     var imgFile = req.file;
     var projectId = req.params.id;
+    var title = req.body.title;
+    var description = req.body.description;
+
     knex.insert({
         projectId: projectId,
-        title: 'test'
+        title: title,
+        description: description 
     }).into('features')
     .then((id) => {
         console.log(imgFile)
@@ -120,9 +123,43 @@ router.post('/view/:id/home/features/upload',uploadFeature.single('featureImage'
         knex('features')
         .update('imgurl',newName)
         .where('id',id)
-        .then(() => res.send({message: 'sent'}))
+        .then(() => {
+            knex('features')
+            .select('*')
+            .where('id',id)
+            .then((data) => res.send(data))
+            })
     })
     
+})
+router.post('/view/:id/home/features/delete', function(req,res){
+    var ids = req.body;
+    console.log(ids);
+    ids.map((id) => {
+        knex('features')
+        .select('*')
+        .where(id,id.id)
+        .then((data) => {
+            fs.unlink(path.join(__dirname,'public','images','features',data[0].imgurl), (err) => {
+                if(err){
+                    throw err;
+                }
+            })
+            knex('features')
+            .del()
+            .where(id, id.id)
+            .then()
+        })
+    })
+    res.send({msg: 'successfully sent'})
+})
+router.get('/view/:id/featureimage/:featureid', function(req,res){
+    var projId = req.params.id;
+    var featureId = req.params.featureid;
+    knex('features')
+    .select('*')
+    .where('id', featureId)
+    .then(data => res.send({data: data}))
 })
 
 

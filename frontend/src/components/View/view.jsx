@@ -14,32 +14,21 @@ import ViewHome from "./viewHome"
 
 
 function View(){
-
     const [viewItem, setViewItem] = useState({})
     const [title, setTitle] = useState()
     var {id} = useParams();
-    // console.log(id);
-
     const viewFetch = useCallback(() => {
         return fetch('http://localhost:4000/view/'+id)
                 .then(response => response.json())
                 .then((items) => setTitle(items.Item[0].title))
     })
-
     viewFetch();
-
-
-
-
     return(
         <div style={{ textAlign:'center'}}>
             <Header id={id} title={title&&title} />
-            {/* <ViewHome path1={overviewPath} path2={taskPath} />  */}
-            {/* <Typography variant="" */}
             <Outlet />
         </div>
     )
-
 }
 
 export default View;

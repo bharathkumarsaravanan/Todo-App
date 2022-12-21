@@ -28,10 +28,10 @@ function Overview(){
 
 
     return(
-        <div>
+        <div style={{marginLeft:'10rem', marginTop:'5rem'}}>
             <Button 
                 variant="contained" 
-                style={{position:'absolute', left:'80rem',top:'0rem'}}
+                style={{position:'absolute', right:'-7rem',top:'-4rem'}}
                 onClick={() => setEditPopUp(true)}>Update
             </Button>
             <EditTasks visible={editPopUp} setVisible={setEditPopUp} defaultPacks={packages} updatepacks={setPackages} />

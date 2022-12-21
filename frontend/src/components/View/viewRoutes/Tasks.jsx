@@ -21,7 +21,7 @@ function Tasks(){
         tasksFetch();
     },[])
     return(
-        <div className="viewTasksComponent" style={{}}>
+        <div className="viewTasksComponent">
             <div>
                 <Typography variant= 'h3' className="viewTaskHeaderText" >Works done</Typography>
                 <div className="viewWorkContainer">
@@ -30,7 +30,7 @@ function Tasks(){
                
             </div><br />
             <div>
-                <Typography variant= 'h3' className="viewTaskHeaderText" style={{top:'31rem'}}>Pending Works</Typography>
+                <Typography variant= 'h3' className="viewTaskHeaderText">Pending Works</Typography>
                 <div className="viewWorkContainer">
                         {completed&&completed.map((task, index) => <TaskItem key={index} title={task.title} description={task.description} />)}     
                 </div>

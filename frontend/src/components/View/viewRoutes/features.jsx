@@ -7,12 +7,17 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import UpdateFeatures from "../Popups/updateFeatures";
 import RemoveFeatures from "../Popups/removeFeatures";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ListSubheader from '@mui/material/ListSubheader';
 
 function Features(){
     const {id} = useParams();
     const [features, setFeatures] = useState([]);
     const [addPopUp, setaddPopUp] = useState(false);
     const [remPopUp, setRemPopUp] = useState(false);
+    const [updateSync, setUpdateSync] = useState(false)
+    console.log(features)
     const featureFetch = () => {
         fetch('http://localhost:4000/view/'+id+'/home/features')
         .then(response => response.json())
@@ -21,24 +26,41 @@ function Features(){
     useEffect(() => {
         featureFetch();
     },[])
-    console.log(features)
-
+    function instantAdd(newItem){
+            console.log(newItem)
+            setUpdateSync(true)
+            setFeatures(prev => {
+                return [...prev,newItem]
+            })
+    }
+    function instantRemove(remItem){
+        remItem.map((Item) => {
+            setFeatures(prev => {
+                return prev.filter(data => data.id !== Item.id)
+            })
+        })
+    }
     return(
-        <div>
-            <UpdateFeatures visible={addPopUp} setVisible={setaddPopUp} />
-            <RemoveFeatures visible={remPopUp} setVisible={setRemPopUp} />
+        <div style={{left:'10rem', top:'5rem' }}>
+            <UpdateFeatures visible={addPopUp} setVisible={setaddPopUp} instantUpd={instantAdd} />
+            <RemoveFeatures visible={remPopUp} setVisible={setRemPopUp} features={features} upd={updateSync} setupd={setUpdateSync} instantUpd={instantRemove} />
             <AddCardIcon 
                 variant='contained' 
                 fontSize="large"
-                style={{position:'absolute', left:'85rem',top:'0rem',zIndex:'99',cursor:'pointer'}}
+                style={{position:'absolute', right:'-10rem',cursor:'pointer'}}
                 onClick={() => setaddPopUp(true)}>Add</AddCardIcon>
             <DeleteOutlineIcon
                 variant="contained"
                 fontSize="large"
-                style={{position:'absolute', left:'85rem',top:'3rem',zIndex:'99',cursor:'pointer'}}
+                style={{position:'absolute', right:'-10rem',top:'4rem',cursor:'pointer'}}
                 onClick={() => setRemPopUp(true)}>Remove</DeleteOutlineIcon>
-            <div className="featureImagesContainer">
-                {features.length!==0&&features.map((feature) => <FeatureImages title={feature.title} imgurl={feature.imgurl} />)}
+            <div>
+                <ImageList sx={{width:985,height:450}} className="muiImageSlides">
+                    <ImageListItem key="Subheader" cols={3}>
+                        <ListSubheader component="div" style={{backgroundColor:'#4e5055', color:'aliceblue'}}>Features</ListSubheader>
+                    </ImageListItem>
+                    {features.length!==0&&features.map((feature, index) => <FeatureImages key={index} feature={feature} remove={false} width='20rem' height='15rem' />)}
+                </ImageList>
             </div>
         </div>
         )

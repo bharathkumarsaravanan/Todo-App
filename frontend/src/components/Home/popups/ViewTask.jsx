@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Typography } from "@mui/material";
-import Tasks from "../tasks";
+import Tasks from "../TasksPage/tasks";
 import CloseIcon from '@mui/icons-material/Close';
 import CreatePopup from "./CreateTask";
 import EditPopUp from "./EditTask";
@@ -13,7 +13,6 @@ function ViewPage(props){
     const [status,setStatus] = useState();
     const [defaultValue,setDefaultValue] = useState();
 
-    // console.log(props.tasks);
 
     const DeleteFetch = useCallback((id) => {
         return fetch('http://localhost:4000/tudos/tasks/delete',{

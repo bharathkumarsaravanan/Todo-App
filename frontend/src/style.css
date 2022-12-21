@@ -1,8 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Spray+Paint&display=swap');
+
 body{
     background-color: aliceblue;
     align-items: center;
     justify-content: center;
 }
+*{
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+.navBar{
+    position: relative;
+    background-color: #5da7db;
+    width: 20rem;
+    height: 44.5rem;
+    transition: all 800ms ease-in-out;
+    justify-content: space-between;
+}
+.navIcon{
+    font-size: 30px;
+    display: flex;
+    gap: .5rem;
+    color: aliceblue;
+    top: 1rem;
+}
+.navBar .barIcon{
+    right: 1rem;
+    transition: all 800ms ease-in-out;
+    color: aliceblue;
+    font-size: 30px;
+    position: absolute;
+    top: .5rem;
+    font-size: 40px;
+}
+.navContents{
+    position: absolute;
+    top: 3rem;
+    line-height: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 5rem;
+}
+.navContents a{
+    color: aliceblue;
+    display: flex;
+    text-align: right;
+    justify-content: space-between;
+    gap: 3rem;
+    transition: all 300ms ease-in-out;
+    text-decoration: none;
+}
+.navContents a div{
+    padding: .5rem;
+    padding-right: 1rem;
+    /* text-align: right; */
+}
+.navContents a div:first-child{
+    text-align: center;
+    width: 100%;
+    transition: all 800ms ease-in-out;
+}
+.navContents a div:nth-child(2){
+    text-align: center;
+    padding: .7rem;
+    margin-top: -.1rem;
+    padding-bottom: .9rem;
+    height: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-right: .5rem;
+}
+
+.navContents .active div:nth-child(2){
+    background-color: aliceblue;
+    color: #5da7db; 
+    border-radius: 20%;
+    transition: all 800ms ease-in-out;
+}
+
+.navContents a:hover{
+    /* background-color: aliceblue;
+    color: #5da7db; */
+    transition: all 800ms ease-in-out;
+    border: 1px solid aliceblue;
+}
+
 
 .projectList{
     justify-content: center;
@@ -12,7 +97,9 @@ body{
     margin-top: 5rem;
 }
  .container{
+    width: 89%;
     gap: 10rem;
+    padding-left: 3rem;
     height: 40rem;
     overflow-y: scroll;
  }
@@ -147,7 +234,6 @@ body{
     height: 130px;
     background-color: #4e5055;
     position: relative;
-    margin: 0px -8px 0 -8px;
 }
 .viewHomeIcon{
     color: #73777B;
@@ -181,14 +267,20 @@ body{
     position: absolute;
     font-size: 60px;
     left: 10rem;
-    top:-1rem;
+    top: 1rem;
 }
 .viewHeaderLinks{
-    color: #7f8487;
     position: absolute;
     top: 6rem;
     left: 11rem;
+}
+.viewHeaderLinks a{
+    color: #7f8487;   
     font-family: 'Sarabun', sans-serif;
+    text-decoration: none;
+}
+.viewHeaderLinks .active{
+    text-decoration: underline;
 }
 .viewHeaderSearch{
     height: 40px;
@@ -200,13 +292,18 @@ body{
     top: 3.5rem;
 }
 .viewList{
-    position: absolute;
+    position: relative;
     left: 5rem;
-    top: 14rem;
+    top: 5rem;
+}
+.viewList .active{
+    text-decoration: underline;
 }
 .viewList a{
     color: #7f8487;
     line-height: 5rem;
+    text-decoration: none;
+
 }
 .verticalLine{
     background-color: #73777B;
@@ -214,7 +311,7 @@ body{
     position: absolute;
     width: 3px;
     height: 22rem;
-    top: 16rem;
+    top: 7rem;
     left: 17rem;
 }
 .viewTitle{
@@ -231,9 +328,9 @@ body{
     /* background-color: #4e5055; */
 }
 .packagesList{
-    position:absolute;
-    top: 1rem;
-    left: 20rem;
+    /* position:absolute; */
+    /* top: 1rem;
+    left: 20rem; */
     width: 60rem;
     height: 31rem;
     overflow-y: scroll;
@@ -243,9 +340,8 @@ body{
     display: none;
 }
 .viewTasksComponent{
-    position: absolute;
-    left: 15rem;
-    top: 0rem;
+    left: 8rem;
+    top: 4rem;
     width: 70rem;
     height: 31rem;
     padding: 0 2rem 0 2rem;
@@ -300,44 +396,128 @@ body{
 }
 .viewTaskHeaderText{
     position: absolute;
-    top: 0;
-    left:3rem;
+    z-index: 99;
+    opacity: 1;
+    top: -2rem;
+    left:2rem;
     background-color: aliceblue;
     height: 2.2rem;
     padding: 0px 10px 0px 10px;
     color: rgba(115, 119, 123, 0.3);
 }
-.featureImages{
-    width: 30rem;
-    border-radius: 1rem;
-    box-shadow: 1px 10px 20px -5px #B2B2B2;
 
-    /* height: 20rem; */
-    /* position: absolute; */
-
+.muiImageSlides::-webkit-scrollbar{
+    background-color: #4e5055;
 }
-.featureImagesContainer::-webkit-scrollbar{
+.muiImageSlides::-webkit-scrollbar-thumb{
+    background-color: white;
+    border-radius: 2rem;
+}
+input[type="file"]::-webkit-file-upload-button{
+    background-color: #1976d2;
+    color: aliceblue;
+    padding: .5rem;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: .3rem;
+}
+input[type="file"]::-webkit-file-upload-button:hover{
+    color: #1976d2;
+    background-color: aliceblue;
+    border: 1px solid rgba(93, 167, 219, 1);
+}
+.alertPop{
+    position: fixed;
+    z-index: 1000;
+    width: 20rem;
+    right: 2rem;
+    top: 2rem;
+}
+
+/* homeProgress */
+.progressPage{
+    overflow-x: visible;
+    width: 89%;
+    height: 44.5rem;
+    overflow-y: scroll;
+    padding-left: 3rem;
+    /* background-color: #423F3E; */
+}
+.progressPage::-webkit-scrollbar{
     display: none;
 }
-.featureImagesContainer{
-    gap: 3rem;
-    padding: 1rem;
-    /* background-color: #4e5055; */
-    width: 70rem;
-    height: 28rem;
-    overflow-y: scroll;
+.progressContainer{
+    background-color: #423F3E;
+    height: 9rem;
+    width: 40;
+    display: flex;
+    margin-top: 2rem;
+}
+.progConHeader{
+    color: rgba(93, 167, 219, 1);
+    /* background-color: #423F3E; */
+    padding-left: 2rem;
+    width: fit-content;
+    text-align: center;
+}
+.progressCountCon{
+    text-align: center;
+    /* width: 30rem; */
+    /* position: absolute; */
+    margin-top: 1rem;
+    color: aliceblue;
+}
+.dateContainer{
     position: absolute;
-    top: 0rem;
-    left: 15rem;
-    display: flex;
-    flex-wrap: wrap;
+    z-index: 99;
+    right: 1rem;
+    top: 3rem;
+    background-color: #423F3E;
+    padding: 0.8rem;
+    height: 1.5rem;
+    border-radius: 1rem;
 }
-.chart{
-    width: 40rem;
+.countTable{
+    padding: 0.5rem;
+    border-radius: .6rem;
+    width: 30rem;
+    height: fit-content;
+    max-height: 20rem;
+    overflow-y: scroll;
+    overflow-x:hidden;
+}
+.countTable::-webkit-scrollbar{
+    background-color: #EFEFEF;
+}
+.countTable::-webkit-scrollbar-thumb{
+    background-color: rgba(93, 167, 219, 1);
+    border-radius: .2rem;
+}
+.projprogContainer{
+    height: 15rem;
+    width: 100%;
+    background-color: #423F3E;
+}
+.projprogScroll{
+    padding: 1rem;
+    width:90%;
+    margin-left: 4rem;
+    display: flex;
+    gap: 2rem;
+    overflow-x: scroll;
+}
+.projprogScroll::-webkit-scrollbar{
+    display: hidden;
+}
+.singleFeatureBody{
+    background-color: #4e5055;
+    width: 50rem;
     height: 40rem;
-}
-.progressPage{
-    display: flex;
-    gap: 10rem;
-    margin-top: 5rem;
+    position: absolute;
+    left: 25%;
+    text-align: center;
+    padding: 1rem;
+    color: white;
+    line-height: 7rem;
+    border-radius: 2rem;
 }
