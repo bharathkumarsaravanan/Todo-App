@@ -521,3 +521,20 @@ input[type="file"]::-webkit-file-upload-button:hover{
     line-height: 7rem;
     border-radius: 2rem;
 }
+
+.links{
+    display: flex;
+    gap: 5rem;
+    position: absolute;
+    top: 8rem;
+    left: 10rem;
+}
+
+.links a{
+    text-decoration: none;
+    color: #423F3E;
+}
+
+.links a img{
+    width: 10rem;
+}

@@ -40,6 +40,10 @@ router.post('/delete',function(req,res){
     .del()
     .where('id',deleteId)
     .then(() =>
+        knex('links')
+        .del()
+        .where('projectId', deleteId)
+        .then(
         knex('packages')
         .del()
         .where('projectId', deleteId)
@@ -47,7 +51,7 @@ router.post('/delete',function(req,res){
             knex('tasks')
             .del()
             .where('projectId', deleteId)
-            .then(() => res.send({result :`${deleteId} deleted`}))));
+            .then(() => res.send({result :`${deleteId} deleted`})))));
 })
 
 router.get('/create',function(req,res){
@@ -68,6 +72,11 @@ router.post('/create',function(req,res){
     })
     .into('tudos')
     .then((projectId) => 
+        knex.insert({
+            projectId: projectId
+        })
+        .into('links')
+        .then(
         knex('tudos')
         .select('*')
         .where('id', projectId)
@@ -82,7 +91,7 @@ router.post('/create',function(req,res){
                     .into('packages')
                     .then()
                 
-            }})),
+            }}))),
      )
       
         // .then((newItem) => )

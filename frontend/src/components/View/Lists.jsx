@@ -10,7 +10,8 @@ function Lists(){
                 <NavLink to='overview'>Overview</NavLink><br/>
                 <NavLink to='packages'>Packages</NavLink><br/>
                 <NavLink to='taskItems'>Works</NavLink><br/>
-                <NavLink to='features'>Features</NavLink>
+                <NavLink to='features'>Features</NavLink><br/>
+                <NavLink to='links'>Links</NavLink>
         </div>
     )
 

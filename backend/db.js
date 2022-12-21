@@ -14,6 +14,7 @@ const knex = require('knex')({
 
 
 // db.run('CREATE TABLE tudos(id INTEGER PRIMARY KEY AUTOINCREMENT, userId INT, title STRING, completed BOOLEAN)');
+// db.run('CREATE TABLE links(id INTEGER PRIMARY KEY AUTOINCREMENT, projectId INT, git STRING, figma STRING, db STRING)');
 // db.run('Drop TABLE projectTools');
 // db.run('ALTER TABLE tudos DROP COLUMN userId');
 // db.run('ALTER TABLE features ADD COLUMN description STRING');
@@ -51,11 +52,14 @@ console.log(day);
 // .groupBy(knex.raw('date(tasks.created_at)'))
 // .where('tudos.id',20)
 // .then((e) => console.log(e))
-knex('tudos')
-.select('*')
+
+knex('links')
+.update({
+    figma: null,
+    git: null
+})
+.where('projectId',28)
 .then((e) => console.log(e))
-
-
 
 
 

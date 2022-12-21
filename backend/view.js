@@ -153,6 +153,7 @@ router.post('/view/:id/home/features/delete', function(req,res){
     })
     res.send({msg: 'successfully sent'})
 })
+
 router.get('/view/:id/featureimage/:featureid', function(req,res){
     var projId = req.params.id;
     var featureId = req.params.featureid;
@@ -162,5 +163,26 @@ router.get('/view/:id/featureimage/:featureid', function(req,res){
     .then(data => res.send({data: data}))
 })
 
+router.get('/view/:id/links', function(req,res){
+    var projId = req.params.id;
+    knex('links')
+    .select('git','figma','db')
+    .where('projectId', projId)
+    .then((data) => res.send({data : data}))
+})
+
+router.post('/view/:id/links', function(req,res){
+    var projId = req.params.id;
+    var body = req.body;
+    console.log(body)
+    knex('links')
+    .update(body)
+    .where('projectId', projId)
+    .then(() => 
+        knex('links')
+        .select('*')
+        .where('projectId', projId)
+        .then((data) => res.send({data: data})))
+})
 
 module.exports = router;

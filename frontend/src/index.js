@@ -7,7 +7,8 @@ import Profile from './components/Home/Settings/profile';
 import Index from './components/Home/Index';
 import View from './components/View/view';
 import Overview from './components/View/viewRoutes/Overview';
-import Packages from './components/View/viewRoutes/packages'
+import Packages from './components/View/viewRoutes/packages';
+import Links from './components/View/viewRoutes/links';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ViewHome from './components/View/viewHome';
 import Progress from './components/View/progress';
@@ -22,7 +23,7 @@ export default function App(){
         <BrowserRouter>
           <Routes>
             <Route path = '/' element={<Index/>}>
-              <Route path='home' default element={<Home/>}/>
+              <Route path='home' Index element={<Home/>}/>
               <Route path='projects' element={<Projects/>}/>
               <Route path='progress' element={<HomeProgress/>}/>
               <Route path='settings' element={<Profile/>}/>
@@ -33,6 +34,7 @@ export default function App(){
                 <Route path='packages' element={<Packages/>} />
                 <Route path='taskItems' element={<Tasks/>} />
                 <Route path='features' element={<Features/>} />
+                <Route path='links' element={<Links/>} />
               </Route>
               <Route path='activities' element= {<Progress />} />
             </Route>
