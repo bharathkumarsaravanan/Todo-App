@@ -2,21 +2,62 @@
 
 body{
     background-color: aliceblue;
-    align-items: center;
-    justify-content: center;
 }
 *{
     position: relative;
     padding: 0;
     margin: 0;
 }
+.notFound{
+    position: relative;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: #D8D8D8;
+}
+.notFound div svg{
+    font-size: 10rem;
+}
+
+.login{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+.loginBox{
+    color: #423F3E;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+    border-radius: 2rem;
+    gap: 1rem;
+    box-shadow:  0 3px 15px rgb(0 0 0 / 0.1);
+}
+.loginBox input{
+    width: 25rem;
+    background-color: white;
+}
+.loginBox input::after{
+    background-color: white;
+}
+.loginBox button:first-of-type{
+    position: absolute;
+    right: 4rem;
+    top: 35.5vh;
+}
+
 .navBar{
     position: relative;
     background-color: #5da7db;
-    width: 20rem;
-    height: 44.5rem;
+    height: 100vh;
     transition: all 800ms ease-in-out;
-    justify-content: space-between;
 }
 .navIcon{
     font-size: 30px;
@@ -26,11 +67,11 @@ body{
     top: 1rem;
 }
 .navBar .barIcon{
+    position: absolute;
     right: 1rem;
     transition: all 800ms ease-in-out;
     color: aliceblue;
     font-size: 30px;
-    position: absolute;
     top: .5rem;
     font-size: 40px;
 }
@@ -40,41 +81,45 @@ body{
     line-height: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3.5rem;
     width: 100%;
-    margin-top: 5rem;
+    margin-top: 15vh;
 }
 .navContents a{
     color: aliceblue;
     display: flex;
     text-align: right;
+    margin-left: .3rem;
+    align-items: center;
     justify-content: space-between;
-    gap: 3rem;
     transition: all 300ms ease-in-out;
     text-decoration: none;
 }
 .navContents a div{
-    padding: .5rem;
+    padding: .3rem;
     padding-right: 1rem;
-    /* text-align: right; */
 }
 .navContents a div:first-child{
     text-align: center;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: .5rem;
+    width: 2rem;
     transition: all 800ms ease-in-out;
 }
 .navContents a div:nth-child(2){
     text-align: center;
-    padding: .7rem;
+    padding: .1rem 1rem;
     margin-top: -.1rem;
     padding-bottom: .9rem;
     height: 1.5rem;
     justify-content: center;
     align-items: center;
     margin-right: .5rem;
+    overflow: hidden;
 }
 
-.navContents .active div:nth-child(2){
+.navContents .active div:nth-child(1){
     background-color: aliceblue;
     color: #5da7db; 
     border-radius: 20%;
@@ -82,26 +127,24 @@ body{
 }
 
 .navContents a:hover{
-    /* background-color: aliceblue;
-    color: #5da7db; */
     transition: all 800ms ease-in-out;
     border: 1px solid aliceblue;
 }
 
 
 .projectList{
-    justify-content: center;
     color: #423F3E;
-    /* background-color: blue; */
-    /* line-height: 10rem; */
-    margin-top: 5rem;
+    width: 200vh;
+    margin-top: 2rem;
 }
  .container{
-    width: 89%;
-    gap: 10rem;
-    padding-left: 3rem;
-    height: 40rem;
+    height: 100vh;
+    width: 200vh;
+    gap: 5rem;
     overflow-y: scroll;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
  }
  .container::-webkit-scrollbar{
     display: none;
@@ -109,14 +152,19 @@ body{
 
 .projectContainer{
     background-color: white;
-    width: 80%;  
-    margin-left: 6rem;  
+    max-height: 40vh;
+    overflow-y: scroll;
+    width: 160vh;  
+    margin-left: 10vh;  
     padding: 20px;
     border-radius: 10px;
     box-shadow: 10px 10px 30px #B2B2B2;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+}
+.projectContainer::-webkit-scrollbar{
+    display: none;
 }
 
 .task{
@@ -133,7 +181,7 @@ body{
     scale: 1.1;
 }
 
-.taskTitle{
+.task p{
     color: #73777B;
 }
 
@@ -141,15 +189,15 @@ body{
     background-color: black;
     height: 100rem;
     top: 10px;
-    /* display: block; */
-    /* position:absolute; */
     z-index: 99;
-    /* opacity: 0.3; */
     background: transparent;
 }
 
 .newPortal{
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     right: 0;
@@ -164,9 +212,7 @@ body{
     width: 40rem;
     gap: 20px;
     justify-content: center;
-    /* margin-top: 2rem; */
     margin-bottom: 2.5rem;
-    /* background-color: #423F3E; */
     padding: 15px;
     padding-top: 30px;
     height: 160px;
@@ -178,13 +224,11 @@ body{
 
 .viewTaskHeader{
     color: #D8D8D8;
-    /* opacity: 0.5; */
     top: 0;
     left: 3rem;
     padding: 0 12px 0 12px;
     background-color: white;
     display: block;
-    /* max-width: 15rem; */
     width: fit-content !important;
     z-index: 99;
     position: absolute;
@@ -195,24 +239,24 @@ body{
     background-color: white;
     justify-content: center;
     align-items: center;
-    display: inline;
     position: fixed;
-    line-height: 4rem;
     padding: 2rem;
     box-shadow: 15px 0px 70px -40px #B2B2B2 ;
     border-left: 1px solid #B2B2B2;
     border-bottom: 1px solid #B2B2B2;
     transform: translate(-50%,-50%);
-    z-index: 1000;
-    top: 2%;
-    left: 25%;
+    /* z-index: 1000; */
+    /* top: 2%;
+    left: 25%; */
 }
 .create{
-    box-shadow: 15px 0px 70px -40px #B2B2B2;
-    border-left: 1px solid #B2B2B2;
-    border-bottom: 1px solid #B2B2B2;
-    top: 40%;
-    left: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    top: 30vh;
+}
+.create div,input,textarea{
+    width: 20rem;
 }
 .options{
     background-color: white;
@@ -224,10 +268,8 @@ body{
   box-shadow: 5px 5px 10px 1px #B2B2B2;
 }
 .tableContainer{
+    margin-top: 10vh;
     background-color: white;
-    position: absolute;
-    top: 7rem;
-    left: 10rem;
     border-radius: 10px;
 }
 .viewHeader{
@@ -237,7 +279,6 @@ body{
 }
 .viewHomeIcon{
     color: #73777B;
-    /* background-color: #5da7db; */
     opacity: 0;
     position: absolute;
     left: 1rem;
@@ -325,16 +366,11 @@ body{
     padding-top: 2rem;
     padding-left: 4rem;
     color: #4e5055;
-    /* background-color: #4e5055; */
 }
 .packagesList{
-    /* position:absolute; */
-    /* top: 1rem;
-    left: 20rem; */
     width: 60rem;
     height: 31rem;
     overflow-y: scroll;
-    /* line-height: 6rem; */
 }
 .packagesList::-webkit-scrollbar{
     display: none;
@@ -345,7 +381,6 @@ body{
     width: 70rem;
     height: 31rem;
     padding: 0 2rem 0 2rem;
-    /* background-color: #4e5055; */
     overflow-y: scroll;
     align-items: center;
     line-height: 4rem;
@@ -365,7 +400,6 @@ body{
     z-index: 99;
 }
 .ViewTaskItem:hover{
-    /* position: absolute; */
     scale: 1.1;
     box-shadow: 1px 10px 20px -5px #B2B2B2;
     background-color: rgba(93, 167, 219, 1);
@@ -385,9 +419,6 @@ body{
     padding-left: .5rem;
     margin-left: -10px;
     margin-top: 2rem;
-    /* display: flex; */
-
-    /* background-color: #5da7db; */
     justify-content: left;
 }
 
@@ -436,12 +467,9 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 /* homeProgress */
 .progressPage{
-    overflow-x: visible;
-    width: 89%;
-    height: 44.5rem;
+    width: 200vh;
+    height: 100vh;
     overflow-y: scroll;
-    padding-left: 3rem;
-    /* background-color: #423F3E; */
 }
 .progressPage::-webkit-scrollbar{
     display: none;
@@ -453,29 +481,32 @@ input[type="file"]::-webkit-file-upload-button:hover{
     display: flex;
     margin-top: 2rem;
 }
+.progressElements{
+    width: 200vh;
+    height: fit-content;
+    margin-top: 2rem;
+}
+.progressFlex{
+    display: flex;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    width: 180vh; 
+    justify-content: space-between;
+}
 .progConHeader{
     color: rgba(93, 167, 219, 1);
-    /* background-color: #423F3E; */
-    padding-left: 2rem;
     width: fit-content;
-    text-align: center;
 }
-.progressCountCon{
+.progressContainer div{
     text-align: center;
-    /* width: 30rem; */
-    /* position: absolute; */
     margin-top: 1rem;
     color: aliceblue;
 }
 .dateContainer{
     position: absolute;
     z-index: 99;
-    right: 1rem;
-    top: 3rem;
-    background-color: #423F3E;
-    padding: 0.8rem;
-    height: 1.5rem;
-    border-radius: 1rem;
+    right: 2rem;
+    bottom: 1rem;
 }
 .countTable{
     padding: 0.5rem;
@@ -537,4 +568,87 @@ input[type="file"]::-webkit-file-upload-button:hover{
 
 .links a img{
     width: 10rem;
+}
+
+.userPage{
+    width: 200vh;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.userPage::-webkit-scrollbar{
+    display: none;
+}
+.userPage button{
+    margin-left: 100vh;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+.userHeader{
+    background-color: #4e5055;
+    height: 307px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index:-1;
+    display: flex;
+    gap: 2rem;
+}
+.userHeader div:nth-child(1){
+    height: 237px;
+    width: 237px;
+    background-color: white;
+    margin-left: 5rem;
+    margin-top: 2rem;
+    border-radius: 50%;
+}
+.userHeader div{
+    color: white;
+}
+
+.userHeader div:nth-child(2){
+    margin-top: 4rem;
+    line-height: 1rem;
+    text-align: left;
+}
+
+.userHeader div:nth-child(2) h5{
+    color: #B2B2B2;
+}
+
+.userHeader div:nth-child(3){
+    display: flex;
+    gap: 3rem;
+    font-size: larger;
+    position: absolute;
+    right: 8rem;
+    top: 1rem;
+}
+.projGroup{
+    margin-top: 24rem;
+    z-index: -2;
+
+}
+.projGroup div{
+    justify-content: center;
+    margin-top: 1rem;
+}
+.projGroup h4{
+    margin-left: 5rem;
+}
+.projectTile{
+    width: 267px;
+    height: 211px;
+    border-radius: 2rem;
+    box-shadow: 15px 15px 50px -10px  #73777B;
+}
+
+.closeIcon{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    opacity: .5;
 }

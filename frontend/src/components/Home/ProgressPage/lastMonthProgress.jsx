@@ -31,14 +31,14 @@ function LastMonthProgress(props){
         setState(false);
     }
     return(
-        <div style={{marginTop:'2rem'}}>
+        <div className="progressElements">
             <Typography 
                 component={motion.div}
                 animate={{ opacity:[0,1]}}
                 transition={{duration: 1, type: 'spring', bounce: .5, delay:1}}
                 variant="h3" 
                 className="progConHeader">Last 10days</Typography>
-            <div style={{display:'flex', gap:'12rem',padding:'1.5rem', marginTop:'2rem'}}> 
+            <div className="progressFlex"> 
                 <CChart
                     style={{ width:'50%', marginTop:'-1rem'}}
                     type="line" 

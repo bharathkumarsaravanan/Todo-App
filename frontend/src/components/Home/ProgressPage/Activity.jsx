@@ -42,9 +42,9 @@ function Activity(){
         setState(false);
     }
     return(
-        <div style={{ width:'100%', marginTop:'3rem' }}>
+        <div className="progressElements">
             <Typography variant='h3' className="progConHeader">Activities</Typography>
-            <div style={{padding:'2rem', display:'flex', gap:'25rem', padding:'3rem'}}>
+            <div className="progressFlex">
                 <ProjCount title='projects' data={featureCount} countHead='Overall Features' bg='white' clr='black' />
                 <CChart
                     type="polarArea"

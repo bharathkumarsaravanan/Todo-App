@@ -68,7 +68,7 @@ function ViewPage(props){
             <motion.div animate={{scale:[0,1.1,1]}} transition={{delay:0.6,duration:0.6}} style={{width:'45rem', height:'35rem'}} className="popup">
                 <div style={{display:'flex',justifyContent:'center'}}>
                     <motion.div animate={{opacity: 1}} initial={{opacity: 0}} transition={{duration:1}}><Typography variant="h3" gutterBottom>{props.project.title}</Typography></motion.div>
-                    <CloseIcon onClick={ClosePopUp} style={{position:'absolute',right:'10px',top:'8px',cursor:'pointer'}}  />
+                    <CloseIcon onClick={ClosePopUp} className="closeIcon" />
                 </div>
                 <Typography variant="h4" className="viewTaskHeader" style={{top:'5.5rem'}}  gutterBottom>Todos</Typography>
                 <div className="viewTaskContainer1" style={{marginTop:'10px'}}>

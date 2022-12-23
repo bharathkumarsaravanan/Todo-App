@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 function Index(){
     return(
-        <div style={{display:'flex'}}>
+        <div style={{display:'flex', gap:'1rem'}}>
             <Navbar />
             <Outlet />
         </div>

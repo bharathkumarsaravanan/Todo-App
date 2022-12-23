@@ -69,8 +69,7 @@ function Projects(){
         })
     }
     return(
-        <div style={{width:'89%', paddingLeft:'3rem'}}>
-        <Button variant="contained" style={{position:'absolute',right:'10rem', top:'2rem'}} color="info" onClick={() =>setCreatePop((prev) => !prev)}>Create</Button>  
+        <div className="container">
                   
             <Table sx={{ minWidth: 650 }} className= "tableContainer"  style={{width:'60%'}} aria-label="simple table">
                 <TableHead>
@@ -83,7 +82,7 @@ function Projects(){
                     {lists.map((list,index) => <Rows createVisible={setCreatePop} remove={removeProject}  columns= {list} index={index} key={index} delay={index} />)}
                 </TableBody>
             </Table>
-
+            <Button variant="contained" color="info" onClick={() =>setCreatePop((prev) => !prev)}>Create</Button>  
             <CreateProject visible={createPop} setVisible={setCreatePop} returnValue={NewProject} />
 
         </div>

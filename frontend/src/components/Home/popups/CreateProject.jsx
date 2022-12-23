@@ -63,7 +63,7 @@ function CreateProject(props){
         <div className="newPortal">
             <Alert visible={alert} variant='filled' severity='error' message='Input is empty' />
             <div className='popup' style={{top:'20rem',left:'45rem', width:'20rem'}}>
-                <CloseIcon style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} 
+                <CloseIcon className="closeIcon" 
                     onClick={() => {
                         props.setVisible(!props.visible)
                         setAlert(false)

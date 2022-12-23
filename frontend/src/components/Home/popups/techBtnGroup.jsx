@@ -8,7 +8,7 @@ function TechButtonGroup(props){
     return ReactDOM.createPortal(
         <div className="newPortal">
             <div className='popup'>
-                <CloseIcon style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} onClick={() => props.setVisible(false)} />
+                <CloseIcon className="closeIcon"  onClick={() => props.setVisible(false)} />
                 <Typography variant="h6" style={{opacity:'0.3'}}>Packages</Typography>
                 {props.tech&&props.tech.map((tech) => <TechButtons tech={tech} add={props.addPackages} remove={props.removePackages}/>)}
             </div>

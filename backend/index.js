@@ -27,6 +27,15 @@ router.use(function timeLog(req,res,next){
     next();
 });
 
+router.post('/login', function(req,res){
+    var body = req.body;
+    knex('users')
+    .select('id')
+    .where('email', body.email)
+    .andWhere('password',body.password)
+    .then((data) => res.send({data: data}))
+})
+
 router.get('/',function(req,res){
     knex('tudos')
     .select('*')

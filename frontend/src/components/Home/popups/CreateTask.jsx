@@ -60,51 +60,47 @@ function CreatePopup(props){
     return ReactDOM.createPortal(
         <motion.div animate={{opacity:[0,1]}} transition={{duration:1}} className="newPortal">
 
-        <motion.div animate={{y:[-1000,-150]}} transition={{delay:0.3}} className="popup create">
-            <CloseIcon onClick={() => props.popup()} style={{position:'absolute',right:'10px',top:'8px',cursor:'pointer'}}  />
+            <motion.div 
+                animate={{y:[-1000,-150]}} 
+                transition={{delay:0.3}} className="popup create">
+                <CloseIcon onClick={() => props.popup()} className="closeIcon"   />
 
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                name="projectId"
-                value={props.project}
-                label="Project Name"
-                onChange={Inputs}>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    name="projectId"
+                    value={props.project}
+                    label="Project Name"
+                    onChange={Inputs}>
 
-                {menuItems&&menuItems.map((Item) => <MenuItem value={Item.id}>{Item.title}</MenuItem>)}
+                    {menuItems&&menuItems.map((Item) => <MenuItem value={Item.id}>{Item.title}</MenuItem>)}
 
-            </Select>
-            <br/>
+                </Select>
 
-            <TextField id="outlined-basic" label="Task" variant="outlined" name="title" onChange={Inputs} value={props.default?props.default.title:values.title} /><br />
-            
-            <TextareaAutosize
-                aria-label="empty textarea"
-                placeholder="Descriptions"
-                minRows={6}
-                style={{ width: 250 }}
-                name="description"
-                value={props.default?props.default.description:values.description}
-                onChange={Inputs}/>
+                <TextField id="outlined-basic" label="Task" variant="outlined" name="title" onChange={Inputs} value={props.default?props.default.title:values.title} />
+                
+                <TextareaAutosize
+                    placeholder="Descriptions"
+                    minRows={6}
+                    style={{ width: 320 }}
+                    name="description"
+                    value={props.default?props.default.description:values.description}
+                    onChange={Inputs}/>
 
-            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                 
-            <NativeSelect
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                name="status"
-                defaultValue= {props.default?props.default.status:'todo'}
-                label= "status"
-                onChange={Inputs}>
-                    
-                <option value='todo'>Todo</option>
-                <option value='completed'>Completed</option>
+                <NativeSelect
+                    name="status"
+                    style={{width:'8rem'}}
+                    defaultValue= {props.default?props.default.status:'todo'}
+                    label= "status"
+                    onChange={Inputs}>
+                        
+                    <option value='todo'>Todo</option>
+                    <option value='completed'>Completed</option>
 
-            </NativeSelect>
-            <br/>
+                </NativeSelect>
 
-            <Button variant="contained" onClick={InputValues}>Enter</Button>
-        </motion.div>
+                <Button variant="contained" onClick={InputValues}>Enter</Button>
+            </motion.div>
         </motion.div>, document.getElementById('portal')
 
     )

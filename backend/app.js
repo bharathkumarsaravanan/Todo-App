@@ -13,6 +13,7 @@ app.use(require('./index'))
 app.use(require('./view'))
 app.use(require('./tudos'))
 app.use(require('./progress'))
+app.use(require('./user'))
 
 
 
