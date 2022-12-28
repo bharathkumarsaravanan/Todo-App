@@ -35,24 +35,27 @@ function RemoveFeatures(props){
     useEffect(() =>{
         featureFetch();
     },[])
+
     useEffect(() => {
         if(props.upd){
             setFeatures(props.features)
             props.setupd(false)
         }
-    })
+    },[props.features, props.setupd])
     
     function removeIds(props){
         setRemoveFeatures(prev => {
             return [...prev,{'id':props}]
         })
     }
+
     function omitRemoveIds(props){
         console.log(props)
         setRemoveFeatures(prev => {
             return prev.filter(item => item.id !== props)
         })
     }
+
     function enterClick(){
         console.log(features)
         removeFeatures.map((rem) => {
@@ -65,10 +68,11 @@ function RemoveFeatures(props){
         props.setVisible(false);
         setRemoveFeatures([])
     }
+
     if(!props.visible) return null
     return ReactDOM.createPortal(
         <div className="newPortal">
-            <div className="popup" style={{top:'15rem',left:'50rem'}}>
+            <div className="popup">
                 <CloseIcon 
                     style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} 
                     onClick={() => props.setVisible(false)}/>

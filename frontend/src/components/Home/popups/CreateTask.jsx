@@ -6,7 +6,6 @@ import {Button} from "@mui/material";
 import { useState, useEffect, useCallback } from "react";
 import {Select} from "@mui/material";
 import {MenuItem} from "@mui/material";
-import InputLabel from '@mui/material/InputLabel';
 import NativeSelect from '@mui/material/NativeSelect';
 import CloseIcon from '@mui/icons-material/Close';
 import {motion} from "framer-motion";
@@ -16,8 +15,6 @@ function CreatePopup(props){
 
     const [values, setValues] = useState({title:'',description:'',projectId:'',status:'todo'})
     const [menuItems, setMenuItems] = useState()
-
-
     var projectFetch = ()=> {
         return fetch('http://localhost:4000/tudos')
                 .then(response => response.json())
@@ -56,11 +53,11 @@ function CreatePopup(props){
     }
 
     if(!props.portal) return null
-
     return ReactDOM.createPortal(
         <motion.div animate={{opacity:[0,1]}} transition={{duration:1}} className="newPortal">
 
             <motion.div 
+                style={{}}
                 animate={{y:[-1000,-150]}} 
                 transition={{delay:0.3}} className="popup create">
                 <CloseIcon onClick={() => props.popup()} className="closeIcon"   />
@@ -72,9 +69,7 @@ function CreatePopup(props){
                     value={props.project}
                     label="Project Name"
                     onChange={Inputs}>
-
                     {menuItems&&menuItems.map((Item) => <MenuItem value={Item.id}>{Item.title}</MenuItem>)}
-
                 </Select>
 
                 <TextField id="outlined-basic" label="Task" variant="outlined" name="title" onChange={Inputs} value={props.default?props.default.title:values.title} />
@@ -93,10 +88,8 @@ function CreatePopup(props){
                     defaultValue= {props.default?props.default.status:'todo'}
                     label= "status"
                     onChange={Inputs}>
-                        
                     <option value='todo'>Todo</option>
                     <option value='completed'>Completed</option>
-
                 </NativeSelect>
 
                 <Button variant="contained" onClick={InputValues}>Enter</Button>

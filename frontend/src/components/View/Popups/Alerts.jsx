@@ -4,6 +4,7 @@ import Alert from '@mui/material/Alert';
 import {motion} from "framer-motion"
 
 function ErrorAlert(props){
+
     if(!props.visible) return null
     return ReactDOM.createPortal(
             <Alert 
@@ -17,7 +18,9 @@ function ErrorAlert(props){
             </Alert>, document.getElementById('portal2')
     )
 }
+
 function SuccessAlert(props){
+
     if(!props.visible) return null
     return ReactDOM.createPortal(
             <Alert variant="filled" severity="error" className="alertPop">

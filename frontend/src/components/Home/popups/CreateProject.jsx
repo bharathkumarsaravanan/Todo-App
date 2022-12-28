@@ -8,20 +8,23 @@ import {TextareaAutosize} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from './Alert'
 import TechButtons from "./techBtn";
+
 function CreateProject(props){
+    
     const [value, setValue] = useState({title:'', description:''})
     const [alert, setAlert] = useState(false);
     const [techs, setTechs] = useState([]);
     const [packages, setPackages] = useState([{}])
-    console.log(techs[0])
     const techFetch = () => {
         fetch('http://localhost:4000/create')
         .then(response => response.json())
         .then(data => setTechs(data.techs))
     }
+
     useEffect(() => {
         techFetch()
     },[])
+
     function InputValues(Items){
         const {name,value} = Items.target;
         setAlert(false)
@@ -32,6 +35,7 @@ function CreateProject(props){
             }
         })
     }
+
     function enterValues(){
         if(value.title === '' || value.description === '' || packages.length === 1){
                 setAlert(true)
@@ -44,11 +48,13 @@ function CreateProject(props){
             props.setVisible(!props.visible)
         }
     }
+
     function addPackages(id){
         setPackages(prev =>{
             return[...prev,{'id':id}]
         })
     }
+
     function removePackages(id){
         setPackages(prev => {
             return prev.filter((Items) => {
@@ -58,18 +64,19 @@ function CreateProject(props){
     }
 
     if(!props.visible) return null
-
     return ReactDOM.createPortal(
         <div className="newPortal">
+
             <Alert visible={alert} variant='filled' severity='error' message='Input is empty' />
-            <div className='popup' style={{top:'20rem',left:'45rem', width:'20rem'}}>
+            <div className='popup'>
+
                 <CloseIcon className="closeIcon" 
                     onClick={() => {
                         props.setVisible(!props.visible)
                         setAlert(false)
                         }} />
+
                 <TextField 
-                    style={{width:'20rem'}}
                     id="standard-basic" 
                     label="Name" 
                     variant="standard" 
@@ -80,13 +87,12 @@ function CreateProject(props){
                     aria-label="minimum height"
                     minRows={5}
                     placeholder="Description"
-                    style={{ width: '20rem',marginBottom:'-5rem' }}
                     name='description'
                     value={value.description}
                     onChange={InputValues}
-                    /><br/>
-                <div>
-                    <Typography variant="h6" style={{opacity:'0.3'}}>Packages</Typography>
+                    />
+                <Typography variant="h6" style={{opacity:'0.3'}}>Packages</Typography>
+                <div className="packBtns">
                     {techs.map((tech) => <TechButtons tech={tech} add={addPackages} remove={removePackages}/>)}
                 </div>
                 <Button variant="contained" size="large" onClick={enterValues}>Create</Button>

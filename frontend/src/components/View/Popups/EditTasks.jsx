@@ -6,22 +6,23 @@ import { Button } from "@mui/material";
 import Btn from "./btn";
 import { useParams } from "react-router-dom";
 
-
-
 function EditTasks(props){
     const [packs, setPacks] = useState();
     const [allPackages, setAllPackages] = useState()
     var {id} = useParams();
+
     const allPacks = () => {
         fetch('http://localhost:4000/view/home/packages')
         .then(response => response.json())
         .then(data => setAllPackages(data.data))
     }
+
     const packagesFetch = () => {
         fetch('http://localhost:4000/view/'+id+'/home/packages')
         .then(response => response.json())
         .then(packageItems => setPacks(packageItems.packages))
     }
+
     const updatePacksFetch = useCallback(() => {
         fetch('http://localhost:4000/view/'+id+'/home/packages/update',{
             method: 'POST',
@@ -38,7 +39,7 @@ function EditTasks(props){
         allPacks();
         packagesFetch();
         console.log('cnjscj')
-    },[])
+    },[]);
    
     function addNewPacks(value,addId){
        console.log(value)
@@ -46,6 +47,7 @@ function EditTasks(props){
             return [...prev, value]
        })
     }
+
     function removePacks(value,remId){
         console.log('remove',value, remId)
         setPacks(prev => {
@@ -54,8 +56,8 @@ function EditTasks(props){
             })
         })
     }
+
     function updatePackages(){
-        console.log(packs)
         updatePacksFetch()
         props.updatepacks(packs)
         props.setVisible(false)
@@ -64,7 +66,7 @@ function EditTasks(props){
     if(!props.visible) return null
     return ReactDOM.createPortal(
         <div className="newPortal">
-            <div className='popup' style={{top:'20rem',left:'50rem', width:'40rem'}}>
+            <div className='popup' style={{width:'40rem'}}>
                 <CloseIcon 
                         style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} 
                         onClick={() => props.setVisible(false)}

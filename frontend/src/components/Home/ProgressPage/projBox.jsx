@@ -13,15 +13,16 @@ import { useAnimation } from "framer-motion";
 function ProjectBox(props){
     const [data, setData] = useState();
     const animation = useAnimation();
-
     const dataFetch = () => {
         fetch('http://localhost:4000/progress/project/'+props.id)
         .then(response => response.json())
         .then(data => setData(data.data))
-    }
+    };
+
     useEffect(() => {
         dataFetch();
-    },[])
+    },[]);
+
     useEffect(() => {
         if(props.view){
             animation.start({
@@ -36,11 +37,10 @@ function ProjectBox(props){
         }
         
         console.log('View',props.view)
-    },[props.view])
-    // if(data.data.length==0) return null
+    },[props.view]);
+
     return(
         <Card
-        //  style={{transition:'500ms ease-in-out'}}
          animate={animation}
          component={motion.div}
          sx={{ width: 200, height:210, bgcolor:"#73777B", color:'white','&:hover':{

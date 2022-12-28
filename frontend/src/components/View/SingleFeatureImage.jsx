@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Typography } from "@mui/material";
 
-function SingleFeatureImage(props){
+function SingleFeatureImage(){
+    
     var {id, featureid} = useParams();
     const [image, setImage] = useState();
     console.log(featureid);
@@ -11,11 +12,11 @@ function SingleFeatureImage(props){
         fetch('http://localhost:4000/view/'+id+'/featureimage/'+featureid)
         .then(response => response.json())
         .then(data => setImage(data.data[0]))
-    }
+    };
+
     useEffect(() => {
         featureImageFetch()
     },[])
-
 
     return(
         <div className="singleFeatureBody">

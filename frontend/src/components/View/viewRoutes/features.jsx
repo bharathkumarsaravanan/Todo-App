@@ -2,7 +2,7 @@ import React from "react";
 import {useParams} from 'react-router-dom';
 import { useState, useEffect } from "react";
 import FeatureImages from "./featureImages";
-import { Button } from "@mui/material";
+import {motion} from "framer-motion";
 import AddCardIcon from '@mui/icons-material/AddCard';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import UpdateFeatures from "../Popups/updateFeatures";
@@ -10,22 +10,26 @@ import RemoveFeatures from "../Popups/removeFeatures";
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ListSubheader from '@mui/material/ListSubheader';
+import FeaturePop from "../Popups/FeatureImagePop";
 
 function Features(){
     const {id} = useParams();
     const [features, setFeatures] = useState([]);
     const [addPopUp, setaddPopUp] = useState(false);
     const [remPopUp, setRemPopUp] = useState(false);
-    const [updateSync, setUpdateSync] = useState(false)
-    console.log(features)
+    const [updateSync, setUpdateSync] = useState(false);
+    const [popUp, setPopUp] = useState(false);
+    
     const featureFetch = () => {
         fetch('http://localhost:4000/view/'+id+'/home/features')
         .then(response => response.json())
         .then((data) => setFeatures(data.features))
-    }
+    };
+
     useEffect(() => {
         featureFetch();
-    },[])
+    },[]);
+
     function instantAdd(newItem){
             console.log(newItem)
             setUpdateSync(true)
@@ -33,6 +37,7 @@ function Features(){
                 return [...prev,newItem]
             })
     }
+
     function instantRemove(remItem){
         remItem.map((Item) => {
             setFeatures(prev => {
@@ -40,8 +45,13 @@ function Features(){
             })
         })
     }
+
     return(
-        <div style={{left:'10rem', top:'5rem' }}>
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{duration:1, delay:.5}}
+            exit={{opacity: 0,transition:{duration:.5}}}>
             <UpdateFeatures visible={addPopUp} setVisible={setaddPopUp} instantUpd={instantAdd} />
             <RemoveFeatures visible={remPopUp} setVisible={setRemPopUp} features={features} upd={updateSync} setupd={setUpdateSync} instantUpd={instantRemove} />
             <AddCardIcon 
@@ -59,10 +69,19 @@ function Features(){
                     <ImageListItem key="Subheader" cols={3}>
                         <ListSubheader component="div" style={{backgroundColor:'#4e5055', color:'aliceblue'}}>Features</ListSubheader>
                     </ImageListItem>
-                    {features.length!==0&&features.map((feature, index) => <FeatureImages key={index} feature={feature} remove={false} width='20rem' height='15rem' />)}
+                    {features.length!==0&&features.map((feature, index) => 
+                        <FeatureImages 
+                            key={index} 
+                            feature={feature} 
+                            remove={false} 
+                            width='20rem' 
+                            height='15rem' 
+                            delaySec={index}
+                            setPop={setPopUp} />)}
                 </ImageList>
             </div>
-        </div>
+            {/* <FeaturePop visible={popUp} setVisible={setPopUp}  /> */}
+        </motion.div>
         )
 
 }

@@ -1,20 +1,18 @@
 import React from "react";
-import { useState, useCallback } from "react";
 import Lists from "./Lists";
-import { Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-
-
+import { motion } from "framer-motion";
 
 function ViewHome(){ 
+
     const {id} = useParams();
+    
     return(
-        <div style={{display:'flex', gap:'7rem'}}>
+        <motion.div className="viewPageBody">
             <Lists id={id} />
-            <div className="verticalLine"></div>
             <Outlet />
-        </div>
+        </motion.div>
     )
 }
 

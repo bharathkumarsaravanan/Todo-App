@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import {TextField} from "@mui/material";
 
 function EditPopUp(props){
+
     const [values, setValues] = useState({title:'',description:''})
     const defaultVal = () => {
             fetch('http://localhost:4000/view/'+props.defaultId)
@@ -15,7 +16,8 @@ function EditPopUp(props){
 
     useEffect(() => {
             defaultVal();
-    },[])
+    },[]);
+
     function inputeValues(inputs){
         var {name, value} = inputs.target;
         setValues(prev => {
@@ -25,6 +27,7 @@ function EditPopUp(props){
             }
         })
     }
+
     function enterInputs(){
         props.returnValue(values);
     }
@@ -32,7 +35,7 @@ function EditPopUp(props){
     if(!props.visible) return null
     return ReactDOM.createPortal(
         <div className="newPortal">
-            <div className='popup' style={{top:'20rem',left:'45rem', width:'20rem'}}>
+            <div className='popup'>
                 <CloseIcon 
                     style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} 
                     onClick={() => props.setVisible(false)}

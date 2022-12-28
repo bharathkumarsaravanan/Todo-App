@@ -1,24 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import {Typography} from "@mui/material";
 import ProgressReport from "./progressReport";
-import TaskProgresses from "./TaskProgresses"
+import TaskProgresses from "./TaskProgresses";
+import { motion } from "framer-motion";
+
 function Progress(){
-  
 
     return(
-     <div>
-
-        <div>
-            <Typography variant="h3" className="progConHeader" style={{marginTop:'3rem'}}>Active days</Typography>
+        <motion.div
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{duration:1}}
+            exit={{opacity: 0,transition:{duration:.5}}}>
+            <Typography variant="h3" 
+                className="progConHeader" 
+                style={{marginTop:'3rem'}}>Active days</Typography>
             <ProgressReport />
             <TaskProgresses />
-        </div>
-
-
-     </div>
+        </motion.div>
     )
 }
 

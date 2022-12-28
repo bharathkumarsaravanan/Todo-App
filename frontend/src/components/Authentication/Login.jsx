@@ -8,6 +8,7 @@ function Login(){
 
     useEffect(() => {
         localStorage.setItem('login',false)
+        localStorage.setItem('splash',true)
     },[])
 
     const loginFetch = useCallback(() => {
@@ -23,7 +24,7 @@ function Login(){
             console.log(data.data)
             if(data.data.length !==0){
                 localStorage.setItem('login', true);
-                window.location.href ='/index/home'
+                window.location.href ='/splash'
             }
         })
         
@@ -64,8 +65,7 @@ function Login(){
                     value={cred.password}
                     onChange={getValue}
                     ></TextField>
-                <Button onClick={() => setShow(prev => !prev)}>{!show?'SHOW':'HIDE'}</Button>
-                    <br/>
+                <Button onClick={() => setShow(prev => !prev)}>{!show?'SHOW':'HIDE'}</Button><br/>
                 <Button 
                     variant="contained" 
                     size="large"

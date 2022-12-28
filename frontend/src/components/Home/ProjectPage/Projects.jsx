@@ -1,7 +1,7 @@
 import React from "react";
 import { useCallback,useState,useEffect } from "react";
 import Rows from "./Rows"
-import { Link } from "react-router-dom";
+import {ThreeDots} from "react-loader-spinner";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,20 +9,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Button } from "@mui/material";
 import CreateProject from "../popups/CreateProject";
+import { motion } from "framer-motion";
 
 
 
 function Projects(){
 
-    const [lists, setlists] = useState([]);
+    const [lists, setlists] = useState();
     const [createPop, setCreatePop] = useState(false);
-    const [defaultValue, setDefaultValue] = useState({});
 
     const Request =  () => {
         return fetch('http://localhost:4000')
                .then((response) => response.json())
                .then((data) => setlists(data.tudoItems))
     }
+
     const createFetch = useCallback((Item, packages)=> {
         return(
             fetch('http://localhost:4000/create',{
@@ -41,6 +42,7 @@ function Projects(){
             })
         )
     },[])
+
     const deleteFetch = useCallback((deleteId) => {
         return(fetch('http://localhost:4000/delete',{
                     method: 'POST',
@@ -52,6 +54,7 @@ function Projects(){
                 .then((response) => response.json())
                 .then((result) => console.log(result))
             )},[])
+
     useEffect(() => {
         Request();
     },[])
@@ -59,6 +62,7 @@ function Projects(){
     function NewProject(Item, packages){
         createFetch(Item, packages);
     }
+
     function removeProject(id){
         var removeId = {id: id}
         deleteFetch(removeId);
@@ -68,9 +72,14 @@ function Projects(){
             })
         })
     }
+    
     return(
-        <div className="container">
-                  
+        <motion.div 
+            initial={{x: '-100%'}}
+            animate={{x: '0'}}
+            transition={{duration:1, delay:.3}}
+            exit={{x: window.innerWidth,transition:{duration:.8}}}
+            className="container">        
             <Table sx={{ minWidth: 650 }} className= "tableContainer"  style={{width:'60%'}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -79,13 +88,31 @@ function Projects(){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {lists.map((list,index) => <Rows createVisible={setCreatePop} remove={removeProject}  columns= {list} index={index} key={index} delay={index} />)}
+                    {lists?
+                        lists.map((list,index) => 
+                            <Rows 
+                                createVisible={setCreatePop} 
+                                remove={removeProject}  
+                                columns= {list} 
+                                index={index} 
+                                key={index} 
+                                delay={index} />)
+                        :<ThreeDots 
+                        height="80" 
+                        width="80" 
+                        radius="9"
+                        color="#5da7db" 
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                        />}
                 </TableBody>
             </Table>
             <Button variant="contained" color="info" onClick={() =>setCreatePop((prev) => !prev)}>Create</Button>  
             <CreateProject visible={createPop} setVisible={setCreatePop} returnValue={NewProject} />
 
-        </div>
+        </motion.div>
     )
 }
 

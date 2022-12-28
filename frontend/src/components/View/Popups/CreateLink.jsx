@@ -7,15 +7,16 @@ import { useState, useEffect, useCallback } from "react";
 import {useParams} from "react-router-dom";
 
 function CreateLink(props){
+
     const [links, setLinks] = useState({figma:null, git:null, db:null});
     var {id} = useParams();
-    console.log(id);
 
     useEffect(() => {
         fetch('http://localhost:4000/view/'+id+'/links')
         .then(response => response.json())
         .then(data => setLinks(data.data[0]))
     },[])
+
     const linkPostFetch = useCallback(() => {
         fetch('http://localhost:4000/view/'+id+'/links',{
             method: 'POST',
@@ -27,7 +28,6 @@ function CreateLink(props){
         .then(response => response.json())
         .then(data => props.update(data.data[0]))
     })
-
 
     function getValue(datas){
         var {name, value} = datas.target;
@@ -48,7 +48,7 @@ function CreateLink(props){
     if(!props.visible) return null 
     return ReactDOM.createPortal(
         <div className="newPortal">
-            <div className="popup" style={{top:'20rem', left:'50rem'}}>
+            <div className="popup">
                 <CloseIcon 
                     style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} 
                     onClick={() => props.setVisible(false)}

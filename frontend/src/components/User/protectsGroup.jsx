@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 
 function ProjectsGroup(){
+    
     const [projects, setProjects] = useState();
 
     useEffect(() => {
@@ -15,7 +16,7 @@ function ProjectsGroup(){
     return(
         <div className="projGroup">
             <Typography variant="h4">Active Projects</Typography>
-            <div style={{display:'flex',gap:'6.3rem'}}>
+            <div style={{display:'flex',gap:'5rem', flexWrap:'wrap'}}>
                 {projects&&projects.map((data, index) =>  <Tiles 
                                                                 key={index} 
                                                                 title={data.title}

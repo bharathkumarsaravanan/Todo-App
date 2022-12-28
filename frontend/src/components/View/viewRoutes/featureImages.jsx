@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {Typography} from "@mui/material";
+import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
@@ -9,13 +9,14 @@ import InfoIcon from '@mui/icons-material/Info';
 
 
 function FeatureImages(props){
+    
     const [selected, setSelected] = useState(true);
     const [selectStyle, setSelectStyle] = useState('none');
     var {id} = useParams();
+
     function handleClick(){
                 if(props.remove){
                     if(selected){
-                        // console.log('selected ',props.feature.id)
                         props.remId(props.feature.id)
                         setSelected(prev => !prev)
                         setSelectStyle('3px solid blue')
@@ -27,15 +28,17 @@ function FeatureImages(props){
                     }
                 }
     }
+
     return(
         <ImageListItem style={{maxWidth:'20rem'}}>
-            <img 
+            <motion.img 
+                animate={{scale:[0,1.1,1]}}
+                transition={{delay:props.delaySec*.4, duration:.5}}
                 src={"http://localhost:4000/images/features/"+props.feature.imgurl}
                 style={{width:props.width, border:selectStyle, height:props.height,maxWidth:'20rem', maxHeight:'15rem'}}
                 alt={props.feature.title}
                 loading="lazy"
                 onClick={handleClick}
-                // className='featureImages' 
                 />
             <ImageListItemBar
                 title={props.feature.title}
@@ -43,13 +46,12 @@ function FeatureImages(props){
                 !props.remove&&<IconButton
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                     aria-label={`info about ${props.feature.title}`}
-                    onClick={() =>   window.location.href = '/show/'+id+'/featureimage/'+props.feature.id}
                 >
-                    <InfoIcon />
+                    <InfoIcon onClick={() =>   props.setPop(true)} />
                 </IconButton>
                 }
              />
-            
+
         </ImageListItem>
     )
 }

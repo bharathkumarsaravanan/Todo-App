@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 function NotFound(){
+    
     return(
         <div className="notFound">
             <div>

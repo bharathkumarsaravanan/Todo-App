@@ -15,7 +15,11 @@ function Tasks(task){
                 {task.page==='view'&&<DeleteOutlineIcon 
                                         className="closeIcon"
                                         onClick={() => task.delete(task.task.id,task.task.status)} />}
-                <Typography variant="body1" gutterBottom>{task.task.description}</Typography>
+                <Typography 
+                    variant="body1" 
+                    gutterBottom>{task.page==='view'?
+                        task.task.description
+                        :task.task.description.split(' ').slice(0,10).join(' ')+'...'}</Typography>
             </div>
         </motion.div>
     )

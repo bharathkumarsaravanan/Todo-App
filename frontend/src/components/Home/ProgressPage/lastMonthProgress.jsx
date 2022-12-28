@@ -5,13 +5,10 @@ import { CChart } from "@coreui/react-chartjs";
 import ProjCount from "./ProjCount";
 import { motion } from "framer-motion";
 
-
-
-function LastMonthProgress(props){
+function LastMonthProgress(){
     const [label, setLabel] = useState([]);
     const [tenDaysProg, setTenDaysProg] = useState([]);
     const [compCount, setCompCount] = useState([]);
-    const [projTaskCount, setProjTaskCount] = useState([]);
     const [state, setState] = useState(false);
     const graphDataFetch = () => {
         return fetch('http://localhost:4000/progress/lasttendays')
@@ -20,16 +17,18 @@ function LastMonthProgress(props){
                     setTenDaysProg(graphData);  
                     setState(true)
                 })
-    }
+    };
    
     useEffect(() => {
         graphDataFetch();
     },[])
+
     if(tenDaysProg.length !== 0&&state){            
         setLabel(tenDaysProg.todo.map((data) => data.date));
         setCompCount(tenDaysProg.todo.map((data) => data.count));
         setState(false);
     }
+
     return(
         <div className="progressElements">
             <Typography 

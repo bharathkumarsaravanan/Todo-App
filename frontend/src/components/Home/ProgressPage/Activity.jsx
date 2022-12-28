@@ -6,7 +6,7 @@ import { CChart } from "@coreui/react-chartjs";
 
 function Activity(){
     const [featureCount, setFeatureCount] = useState([]);
-    const [taskCount, setTaskCount] = useState([])
+    const [taskCount, setTaskCount] = useState([]);
     const [labels, setLabels] = useState([]);
     const [counts, setCounts] = useState([]);
     const [ranClr, setRanClr] = useState(['#73777B'])
@@ -19,10 +19,12 @@ function Activity(){
             setTaskCount(data.taskCount)
             setState(true)
         }) 
-    }
+    };
+
     useEffect(() => {
         featureCountFetch();
     },[])
+
     if(featureCount.length !==0 && state){
         setLabels(taskCount.map((item) => item.title))
         setCounts(taskCount.map((item) => item.count))
@@ -41,6 +43,7 @@ function Activity(){
       
         setState(false);
     }
+
     return(
         <div className="progressElements">
             <Typography variant='h3' className="progConHeader">Activities</Typography>

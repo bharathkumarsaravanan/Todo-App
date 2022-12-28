@@ -1,23 +1,23 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import ProgressContainer from "./progressContainer";
-import {Typography} from "@mui/material"
-import {Link} from "react-router-dom"
+import { motion } from "framer-motion";
 import LastMonthProgress from "./lastMonthProgress";
 import Activity from "./Activity";
 import ProjectProgress from "./projprogressContainer";
 
 function Progress(){
     const [todayProgress, setTodayProgress] = useState({});
-  
     const todayDataFetch = () => {
         fetch('http://localhost:4000/progress/today')
         .then(response => response.json())
         .then(data => setTodayProgress(data))
     } 
+
     useEffect(() => {
         setInterval(todayDataFetch(),1000);
     },[])
+
     var newTaskCount = 0;
     var completedCount = 0;
     todayProgress.todayProgress&&todayProgress.todayProgress.map((value) => {
@@ -29,8 +29,12 @@ function Progress(){
     })
   
     return (
-     
-        <div className='progressPage'>
+        <motion.div 
+            initial={{x: '-100%'}}
+            animate={{x: '0'}}
+            transition={{duration:1, delay:.3}}
+            exit={{x: window.innerWidth,transition:{duration:.8}}}
+            className='progressPage'>
             <ProgressContainer total={todayProgress.totalCount} 
                                completed={completedCount}
                                new={newTaskCount} />
@@ -39,7 +43,7 @@ function Progress(){
             <ProjectProgress /> 
         
             
-        </div>
+        </motion.div>
     )
 
 }

@@ -7,11 +7,11 @@ import TableRow from '@mui/material/TableRow';
 import { motion } from "framer-motion";
 
 function ProjCount(props){
-    console.log(props.data);
+    
     return(
     <motion.div 
         animate={{scale:[0,1.1,1]}}
-        transition={{duration:.7, type: 'spring'}}
+        transition={{duration:.7, type: 'spring', delay:.6}}
         className="countTable" 
         style={{backgroundColor: props.bg}}>
         <Table sx={{ minWidth: 500 }} size="small" aria-label="a dense table" >

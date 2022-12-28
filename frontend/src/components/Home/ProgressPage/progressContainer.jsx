@@ -13,7 +13,7 @@ function Container(props){
     return(
         <motion.div 
             animate={{x:['-50vw','0vw'], opacity:[0,1]}}
-            transition={{duration: 1, type: 'spring', bounce: .5}}
+            transition={{duration: 1, type: 'spring', bounce: .5, delay:1}}
             className="progressElements"
             >
             <Typography 

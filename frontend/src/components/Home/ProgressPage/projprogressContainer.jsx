@@ -5,9 +5,7 @@ import {useInView} from "react-intersection-observer";
 
 
 function ProjectProgress(){
-    const [projects, setProjects] = useState([]);
-    const [progPopUp, setProgPopUp] = useState(false);
-    const [tempId, setTempId] = useState();
+    const [projects, setProjects] = useState();
     const {ref, inView} = useInView();
 
 
@@ -20,16 +18,18 @@ function ProjectProgress(){
         projFetch();
     },[])
 
-
-    function projectReport(id){
-        setTempId(id);
-        setProgPopUp(true)
-    }
-
     return(
         <div className="projprogContainer" ref={ref}>
             <div className="projprogScroll">
-                {projects.map((project, index) => <ProjectBox key={index} delayVal={index} view={inView} id={project.id} name={project.title} setPop={projectReport} />)}    
+                {projects&&
+                    projects.map((project, index) => 
+                        <ProjectBox 
+                            key={index} 
+                            delayVal={index} 
+                            view={inView} 
+                            id={project.id} 
+                            name={project.title} />)
+                            }    
             </div>
         </div>
     )

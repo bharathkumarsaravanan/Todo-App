@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@mui/material";
-import { useState,useEffect,useCallback } from "react";
+import { useState,useCallback } from "react";
 import Tasks from "./tasks";
 import {Button} from "@mui/material";
 import CreatePopup from "../popups/CreateTask";
@@ -38,22 +38,18 @@ function ProjectDet(project){
                 });
     })
 
-
     tasksFetch();
-
 
     function TaskPopup(){
         setPopup((prev) => !prev)
     }
+
     function ViewPopup(){
         setView(prev => !prev)
-        console.log("view",view)
     }
 
     function AddTask(newTask){
         CreatTaskFetch(newTask)
-        // newTask.id = newid.id;
-        console.log(newTask);
         if(newTask.status==='todo'){
             setTasks(prev =>{
                 return [...prev,newitem]
@@ -62,12 +58,10 @@ function ProjectDet(project){
             setcompleted(prev =>{
                 return [...prev,newitem]
             })
-        }
-       
+        }  
     }
 
     function RemoveTask(id,status){
-        console.log(id)
         if(status==='todos'){
             setTasks((prev) => {
                 return prev.filter((items)=> {
@@ -81,9 +75,7 @@ function ProjectDet(project){
                     return items.id !== id
                 })
             })
-        }
-
-       
+        }     
     }
 
     return(
@@ -93,7 +85,7 @@ function ProjectDet(project){
             transition={{delay: 1}} 
             className="projectList">
 
-            <div style={{display:'flex',justifyContent:'space-between'}}>
+            <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
 
                 <motion.div 
                     animate={{x: 0, opacity: 1}} 

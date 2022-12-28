@@ -1,15 +1,15 @@
 import React from "react";
-import CloseIcon from '@mui/icons-material/Close';
 import { Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 function Btn(props){
-    var a = true;
+
     function clickIcon(){
         console.log()
        props.returnValue(props.Item, props.Item.id)
     }
+
     return(
         <div style={{display:'flex'}}>
             {props.type == 'add'? 
