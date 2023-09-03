@@ -18,8 +18,9 @@ function Features(){
     const [addPopUp, setaddPopUp] = useState(false);
     const [remPopUp, setRemPopUp] = useState(false);
     const [updateSync, setUpdateSync] = useState(false);
-    const [popUp, setPopUp] = useState(false);
-    
+    const [viewPop, setViewPop] = useState(false);
+    const [singleFeature, setSingleFeature] = useState({});
+
     const featureFetch = () => {
         fetch('http://localhost:4000/view/'+id+'/home/features')
         .then(response => response.json())
@@ -29,6 +30,10 @@ function Features(){
     useEffect(() => {
         featureFetch();
     },[]);
+
+    useEffect(() => {
+        console.log(viewPop)
+    },[viewPop])
 
     function instantAdd(newItem){
             console.log(newItem)
@@ -42,6 +47,16 @@ function Features(){
         remItem.map((Item) => {
             setFeatures(prev => {
                 return prev.filter(data => data.id !== Item.id)
+            })
+        })
+    }
+
+    function featureView(featureid){
+        // console.log(featureid);
+        setViewPop(true);
+        setSingleFeature(prev => {
+            return features.filter(data => {
+                return data.id === featureid
             })
         })
     }
@@ -77,10 +92,11 @@ function Features(){
                             width='20rem' 
                             height='15rem' 
                             delaySec={index}
-                            setPop={setPopUp} />)}
+                            state={featureView}
+                             />)}
                 </ImageList>
             </div>
-            {/* <FeaturePop visible={popUp} setVisible={setPopUp}  /> */}
+            <FeaturePop visible={viewPop} setVisible={setViewPop} feature={singleFeature}  />
         </motion.div>
         )
 

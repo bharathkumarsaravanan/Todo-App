@@ -46,8 +46,9 @@ function FeatureImages(props){
                 !props.remove&&<IconButton
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                     aria-label={`info about ${props.feature.title}`}
+                    onClick={() => props.state(props.feature.id)}
                 >
-                    <InfoIcon onClick={() =>   props.setPop(true)} />
+                    <InfoIcon />
                 </IconButton>
                 }
              />

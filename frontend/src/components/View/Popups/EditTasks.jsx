@@ -68,7 +68,7 @@ function EditTasks(props){
         <div className="newPortal">
             <div className='popup' style={{width:'40rem'}}>
                 <CloseIcon 
-                        style={{position:'absolute',top:'2px',right:'2px',cursor:'pointer'}} 
+                        className="closeIcon"
                         onClick={() => props.setVisible(false)}
                     />
                     <div style={{display:'flex', gap:'2rem', flexWrap:'wrap', marginLeft:'4rem'}}>

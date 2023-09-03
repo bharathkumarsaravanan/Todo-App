@@ -174,9 +174,9 @@ body{
     background-color: white;
 }
 .loginBox button:first-of-type{
-    position: absolute;
-    right: 4rem;
-    top: 36vh;
+    position: relative;
+    right: -11vw;
+    top: -9vh;
 }
 
 /* navBar */
@@ -248,7 +248,7 @@ body{
     margin-left: 10vh;  
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 10px 10px 30px #B2B2B2;
+    box-shadow: 5px 5px 20px #edebeb;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -261,7 +261,7 @@ body{
     width: 10rem;
     padding: 3px;
     border-radius: 7px;
-    box-shadow: 10px 0px 10px 0px #EAEAEA;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-left: 2px solid #EAEAEA;
     border-bottom: 2px solid #EAEAEA;
     background-color: white;

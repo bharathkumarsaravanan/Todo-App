@@ -34,7 +34,9 @@ var year = today.getFullYear()
 var day = year + '-' + month+ '-' + date
 console.log(day);
 
-
+knex('features')
+.select('*')
+.then((e) => console.log(e))
 
 
 

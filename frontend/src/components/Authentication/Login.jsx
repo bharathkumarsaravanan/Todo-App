@@ -65,7 +65,7 @@ function Login(){
                     value={cred.password}
                     onChange={getValue}
                     ></TextField>
-                <Button onClick={() => setShow(prev => !prev)}>{!show?'SHOW':'HIDE'}</Button><br/>
+                <Button onClick={() => setShow(prev => !prev)}>{!show?'SHOW':'HIDE'}</Button>
                 <Button 
                     variant="contained" 
                     size="large"
